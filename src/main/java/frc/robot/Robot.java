@@ -8,6 +8,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.component.DriveBase;
 import frc.robot.component.VisionTracking;
+import com.revrobotics.Rev2mDistanceSensor;
+import com.revrobotics.Rev2mDistanceSensor.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
 //import frc.robot.system.NewAutoEngine;
 
 /**
@@ -25,6 +30,7 @@ public class Robot extends TimedRobot {
    * for any
    * initialization code.
    */
+  private static Rev2mDistanceSensor distSens;
   public static XboxController maincontrol;
   public static XboxController vicecontrol;
 
@@ -34,11 +40,16 @@ public class Robot extends TimedRobot {
     vicecontrol = new XboxController(1);
     DriveBase.init();
     VisionTracking.init();
+    distSens = new Rev2mDistanceSensor(Port.kOnboard);
+    distSens.setAutomaticMode(true);
+
     //NewAutoEngine.init();
   }
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putNumber("Range", distSens.getRange());
+    SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
   }
 
   @Override
