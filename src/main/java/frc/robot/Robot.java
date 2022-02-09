@@ -5,45 +5,74 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.component.DriveBase;
+import frc.robot.component.VisionTracking;
+//import frc.robot.system.NewAutoEngine;
 
 /**
- * The VM is configured to automatically run this class, and to call the functions corresponding to
- * each mode, as described in the TimedRobot documentation. If you change the name of this class or
- * the package after creating this project, you must also update the build.gradle file in the
+ * The VM is configured to automatically run this class, and to call the
+ * functions corresponding to
+ * each mode, as described in the TimedRobot documentation. If you change the
+ * name of this class or
+ * the package after creating this project, you must also update the
+ * build.gradle file in the
  * project.
  */
 public class Robot extends TimedRobot {
   /**
-   * This function is run when the robot is first started up and should be used for any
+   * This function is run when the robot is first started up and should be used
+   * for any
    * initialization code.
    */
-  @Override
-  public void robotInit() {}
+  public static XboxController maincontrol;
+  public static XboxController vicecontrol;
 
   @Override
-  public void robotPeriodic() {}
+  public void robotInit() {
+    maincontrol = new XboxController(0);
+    vicecontrol = new XboxController(1);
+    DriveBase.init();
+    VisionTracking.init();
+    //NewAutoEngine.init();
+  }
 
   @Override
-  public void autonomousInit() {}
+  public void robotPeriodic() {
+  }
 
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousInit() {
+   //NewAutoEngine.start();
+  }
 
   @Override
-  public void teleopInit() {}
+  public void autonomousPeriodic() {
+    //NewAutoEngine.loop();
+  }
 
   @Override
-  public void teleopPeriodic() {}
+  public void teleopInit() {
+  }
 
   @Override
-  public void disabledInit() {}
+  public void teleopPeriodic() {
+    DriveBase.teleop();
+  }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledInit() {
+  }
 
   @Override
-  public void testInit() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
-  public void testPeriodic() {}
+  public void testInit() {
+  }
+
+  @Override
+  public void testPeriodic() {
+  }
 }
