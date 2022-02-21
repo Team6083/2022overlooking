@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
     DriveBase.init();
-    // VisionTracking.init();
+    VisionTracking.init();
   }
 
   @Override
@@ -58,6 +58,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     DriveBase.teleop();
+    VisionTracking.teleop();
   }
 
   @Override
