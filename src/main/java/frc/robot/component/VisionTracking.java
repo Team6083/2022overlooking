@@ -41,12 +41,7 @@ public class VisionTracking {
       setLEDMode(3);
     }
 
-     /**
-   * 0 use the LED Mode set in the current pipeline 1 force off 2 force blink 3
-   * force on
-   * 
-   * @param ModeNumber use to set LED mode
-   */
+     
   public static void teleop(){
     double speed = pid.calculate(ty);
     double rota = pid.calculate(tx);
@@ -78,6 +73,13 @@ public class VisionTracking {
      Drive.arcadeDrive(speed, rota, false);
     }
    }
+
+   /**
+   * 0 use the LED Mode set in the current pipeline 1 force off 2 force blink 3
+   * force on
+   * 
+   * @param ModeNumber use to set LED mode
+   */
   public static void setLEDMode(int ModeNumber) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ModeNumber);
   }

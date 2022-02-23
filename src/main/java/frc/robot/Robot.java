@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.component.DriveBase;
 import frc.robot.component.VisionTracking;
+import frc.robot.system.NewAutoEngine;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
     vicecontrol = new XboxController(1);
     DriveBase.init();
     VisionTracking.init();
+    NewAutoEngine.init();
   }
 
   @Override
@@ -45,10 +47,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
+    NewAutoEngine.start();
   }
 
   @Override
   public void autonomousPeriodic() {
+    NewAutoEngine.loop();
   }
 
   @Override
