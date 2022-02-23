@@ -40,13 +40,44 @@ public class VisionTracking {
       setCamMode(0);
       setLEDMode(3);
     }
+
      /**
    * 0 use the LED Mode set in the current pipeline 1 force off 2 force blink 3
    * force on
    * 
    * @param ModeNumber use to set LED mode
    */
-
+  public static void teleop(){
+    double speed = pid.calculate(ty);
+    double rota = pid.calculate(tx);
+    if(speed>0.7){
+      speed = 0.7;
+    }
+    else if(speed<-0.7){
+     speed = -0.7;
+    }
+ 
+    if(rota>0.7){
+      rota = 0.7;
+    }
+    else if(rota<-0.7){
+      rota = -0.7;
+    }
+    if(xbox.getYButtonPressed()){
+      A = !A;
+    }
+ 
+    if(A!=true){
+     setLEDMode(1);
+     setCamMode(1);
+     Drive.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
+    }
+    else if(A){
+     setLEDMode(0);
+     setCamMode(3);
+     Drive.arcadeDrive(speed, rota, false);
+    }
+   }
   public static void setLEDMode(int ModeNumber) {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ModeNumber);
   }
@@ -97,35 +128,5 @@ public class VisionTracking {
   public static double getLatencyContribution() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0);
   }
-  public static void teleop(){
-   double speed = pid.calculate(ty);
-   double rota = pid.calculate(tx);
-   if(speed>0.7){
-     speed = 0.7;
-   }
-   else if(speed<-0.7){
-    speed = -0.7;
-   }
 
-   if(rota>0.7){
-     rota = 0.7;
-   }
-   else if(rota<-0.7){
-     rota = -0.7;
-   }
-   if(xbox.getYButtonPressed()){
-     A = !A;
-   }
-
-   if(A!=true){
-    setLEDMode(1);
-    setCamMode(1);
-    Drive.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
-   }
-   else if(A){
-    setLEDMode(0);
-    setCamMode(3);
-    Drive.arcadeDrive(speed, rota, false);
-   }
-  }
 }
