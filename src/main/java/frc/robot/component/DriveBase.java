@@ -5,11 +5,11 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
@@ -34,8 +34,10 @@ import frc.robot.Robot;
 public class DriveBase {
 
     // port
-    private static final int Lm1 = 11;// motorControler ID
-    private static final int Rm1 = 13;
+    private static final int Lm1 = 12;// motorControler ID
+    private static final int Lm2 = 15;
+    private static final int Rm1 = 11;
+    private static final int Rm2 = 13;
     private static final int Re1 = 2;// Encoder ID
     private static final int Re2 = 3;
     private static final int Le1 = 0;
@@ -43,7 +45,9 @@ public class DriveBase {
 
     // basis drivebase
     public static WPI_VictorSPX leftMotor1;// define motor
+    public static WPI_VictorSPX leftMotor2;
     public static WPI_VictorSPX rightMotor1;
+    public static WPI_VictorSPX rightMotor2;
     public static MotorControllerGroup leftmotor;
     public static MotorControllerGroup rightmotor;
     public static DifferentialDrive drive;// use to simpied drivebase program
@@ -68,13 +72,12 @@ public class DriveBase {
     protected static Field2d trajField = new Field2d();
 
     // For PID
-    private static double kP = 0.68;
-    private static double kI = 0.3;
+    private static double kP = 10.996;
+    private static double kI = 0;
     private static double kD = 0;
 
-    // filter to smooth the wave, not very important
-    protected static LinearFilter l_filter = LinearFilter.singlePoleIIR(0.1, 0.02);
-    protected static LinearFilter r_filter = LinearFilter.singlePoleIIR(0.1, 0.02);
+    // Feedforward Controller
+    protected static SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(1.4034, 6.1872);
 
     // PIDController
     protected static PIDController leftPID = new PIDController(kP, kI, kD);
@@ -91,12 +94,14 @@ public class DriveBase {
 
     public static void init() {
         leftMotor1 = new WPI_VictorSPX(Lm1);// add ID into MotorControler
+        leftMotor2 = new WPI_VictorSPX(Lm2);
         rightMotor1 = new WPI_VictorSPX(Rm1);
+        rightMotor2 = new WPI_VictorSPX(Rm2);
         rightencoder = new Encoder(Re1, Re2);// add ID into Encoder
         leftencoder = new Encoder(Le1, Le2);
 
-        leftmotor = new MotorControllerGroup(leftMotor1, leftMotor1);
-        rightmotor = new MotorControllerGroup(rightMotor1, rightMotor1);
+        leftmotor = new MotorControllerGroup(leftMotor1, leftMotor2);
+        rightmotor = new MotorControllerGroup(rightMotor1, rightMotor2);
         drive = new DifferentialDrive(leftmotor, rightmotor);// define which motor we need to
                                                              // use in drivebasse
 
@@ -110,6 +115,7 @@ public class DriveBase {
         leftencoder.setDistancePerPulse(2 * Math.PI * Units.inchesToMeters(6) / 730); // 365*2
         rightencoder.setDistancePerPulse(2 * Math.PI * Units.inchesToMeters(6) / 730);
         rightencoder.setReverseDirection(true);
+        
         // define gryo ID
         gyro = new AHRS(SPI.Port.kMXP);// gyro need to add class in order to fit to our library, which means that it
                                        // need a extre function to keep it work and Override it
@@ -170,9 +176,10 @@ public class DriveBase {
     public static void runTraj(Trajectory trajectory, double timeInSec) {
         Trajectory.State goal = trajectory.sample(timeInSec);
         trajField.setRobotPose(goal.poseMeters);
-
+        
         var chaspeed = ramseteController.calculate(odometry.getPoseMeters(), goal);
 
+        // Convert chassis speed to wheel speed
         var wheelSpeeds = kinematic.toWheelSpeeds(chaspeed); // left right speed
         double left = wheelSpeeds.leftMetersPerSecond; // catch sppe from wheelSpeed(with ctrl+left mice)
         double right = wheelSpeeds.rightMetersPerSecond;
@@ -180,11 +187,12 @@ public class DriveBase {
         leftPID.setSetpoint(left);
         rightPID.setSetpoint(right);
 
-        double leftVolt = leftPID.calculate(l_filter.calculate(leftencoder.getRate()));
-        double rightVolt = rightPID.calculate(r_filter.calculate(rightencoder.getRate()));
+        double leftVolt = leftPID.calculate(leftencoder.getRate(), left) + feedforward.calculate(left);
+        double rightVolt = rightPID.calculate(rightencoder.getRate(), right) + feedforward.calculate(right);
 
         leftMotor1.setVoltage(leftVolt);
         rightMotor1.setVoltage(rightVolt);
+        drive.feed();
 
         SmartDashboard.putNumber("leftVolt", leftVolt);
         SmartDashboard.putNumber("rightVolt", rightVolt);
@@ -230,11 +238,6 @@ public class DriveBase {
     public static void resetPIDs() {
         leftPID.reset();
         rightPID.reset();
-    }
-
-    public static void resetFilters() {
-        l_filter.reset();
-        r_filter.reset();
     }
 
     public static void resetEnc() {
