@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
 public class VisionTracking {
   public static WPI_VictorSPX rf;
@@ -43,8 +44,10 @@ public class VisionTracking {
 
      
   public static void teleop(){
+
     double speed = pid.calculate(ty);
     double rota = pid.calculate(tx);
+
     if(speed>0.7){
       speed = 0.7;
     }
@@ -65,13 +68,19 @@ public class VisionTracking {
     if(A!=true){
      setLEDMode(1);
      setCamMode(1);
-     Drive.tankDrive(xbox.getRawAxis(1), xbox.getRawAxis(5));
     }
+
     else if(A){
      setLEDMode(0);
      setCamMode(3);
      Drive.arcadeDrive(speed, rota, false);
     }
+   }
+   public static void autonumous(){
+    setLEDMode(0);
+    setCamMode(3);
+    double rota = pid.calculate(tx);
+    Shoot.autoshoot(rota);
    }
 
    /**

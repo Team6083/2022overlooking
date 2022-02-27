@@ -3,8 +3,10 @@ package frc.robot.component;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import frc.robot.Robot;
+
 public class Shoot {
-    private static CANSparkMax spark;
+    public static CANSparkMax spark;
     private static int ksparkMax = 0;
     
     public static void init(){
@@ -12,6 +14,15 @@ public class Shoot {
     }
     
     public static void teleop(){
-        spark.set(0.6);
+        if(Robot.maincontrol.getYButton()){
+            spark.set(0.6);
+        }
+        else{
+            spark.set(0);
+        }
+    }
+
+    public static void autoshoot(double a){
+        spark.set(a);
     }
 }
