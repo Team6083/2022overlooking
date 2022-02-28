@@ -5,16 +5,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
+//import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class VisionTracking {
-  public static WPI_VictorSPX rf;
-  public static WPI_VictorSPX lf;
-  public static final int r = 11;
-  public static final int l = 13;
   public static double a = 0.5;
   public static PIDController pid;
   public static XboxController xbox;
@@ -22,39 +18,28 @@ public class VisionTracking {
   public static double tv;
   public static double tx;
   public static double ty;
-  public static DifferentialDrive Drive;
-  public static MotorControllerGroup left;
-  public static MotorControllerGroup right;
   public static boolean A = false;
+  private static DigitalInput rightlimitSwitch;
+  private static DigitalInput leftlimitSwitch;
+  private static WPI_VictorSPX turnmotor;
+  private final static int s = 10;
+  private final static double speed = 0.1;
+  private static boolean R = false;
+  private static boolean L = false;
     public static void init(){
       xbox = new XboxController(0);
       pid = new PIDController(0.1, 0.1, 0.1);//values need to be confirmed
-      rf = new WPI_VictorSPX(r);
-      lf = new WPI_VictorSPX(l);
-      table = NetworkTableInstance.getDefault().getTable("limelight");
-      tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-      tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-      ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-      left = new MotorControllerGroup(lf, lf);
-      right = new MotorControllerGroup(rf, rf);
-      Drive = new DifferentialDrive(left,right);
-      setCamMode(0);
+      rightlimitSwitch = new DigitalInput(0);
+      leftlimitSwitch = new DigitalInput(1);
+      turnmotor = new WPI_VictorSPX(s);
       setLEDMode(3);
     }
 
      
   public static void teleop(){
 
-    double speed = pid.calculate(ty);
     double rota = pid.calculate(tx);
 
-    if(speed>0.7){
-      speed = 0.7;
-    }
-    else if(speed<-0.7){
-     speed = -0.7;
-    }
- 
     if(rota>0.7){
       rota = 0.7;
     }
@@ -73,8 +58,35 @@ public class VisionTracking {
     else if(A){
      setLEDMode(0);
      setCamMode(3);
-     Drive.arcadeDrive(speed, rota, false);
+     limelight_tracking();
     }
+   }
+   public static void seeking() {
+    if (tv == 0) {
+      turnmotor.set(speed);
+      if (rightlimitSwitch.get()) {
+        R = !R;
+        turnmotor.set(-speed);// reverse
+        // platemotor.set(0)
+      }
+      if (leftlimitSwitch.get()) {
+        L = !L;
+        turnmotor.set(speed);// reverse
+        // platemotor.set(0);
+      }
+      SmartDashboard.putBoolean("R", R);
+      SmartDashboard.putBoolean("L", L);
+    } else {
+      limelight_tracking();
+    }
+  }
+   public static void limelight_tracking(){
+    table = NetworkTableInstance.getDefault().getTable("limelight");
+    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+    ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+    double rota = pid.calculate(tx);
+    turnmotor.set(rota);
    }
    public static void autonumous(){
     setLEDMode(0);
@@ -126,9 +138,9 @@ public class VisionTracking {
 
   /**
    * 
-   * @return Skew or rotation (-90 degrees to 0 degrees)
+   * @return Skew or rotationtion (-90 degrees to 0 degrees)
    */
-  public static double getRotation() {
+  public static double getrotationtion() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts").getDouble(0);
   }
 
