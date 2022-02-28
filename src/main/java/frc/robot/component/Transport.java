@@ -11,7 +11,7 @@ public class Transport {
 }
 
 public static void teleop(){
-if(Robot.maincontrol.getXButton()){
+if(Robot.vicecontrol.getXButton()){
    tran.set(ControlMode.PercentOutput,1);}
 
 else{

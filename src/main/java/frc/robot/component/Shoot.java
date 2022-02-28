@@ -6,23 +6,23 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Robot;
 
 public class Shoot {
-    public static CANSparkMax spark;
+    public static CANSparkMax shoot;
     private static int ksparkMax = 0;
     
     public static void init(){
-        spark = new CANSparkMax(ksparkMax,MotorType.kBrushless);
+        shoot = new CANSparkMax(ksparkMax,MotorType.kBrushless);
     }
     
     public static void teleop(){
-        if(Robot.maincontrol.getYButton()){
-            spark.set(0.6);
+        if(Robot.maincontrol.getBButton()){
+            shoot.set(0.6);
         }
         else{
-            spark.set(0);
+            shoot.set(0);
         }
     }
 
     public static void autoshoot(double a){
-        spark.set(a);
+        shoot.set(a);
     }
 }
