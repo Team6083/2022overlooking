@@ -115,7 +115,7 @@ public class DriveBase {
         leftencoder.setDistancePerPulse(2 * Math.PI * Units.inchesToMeters(6) / 730); // 365*2
         rightencoder.setDistancePerPulse(2 * Math.PI * Units.inchesToMeters(6) / 730);
         rightencoder.setReverseDirection(true);
-        
+
         // define gryo ID
         gyro = new AHRS(SPI.Port.kMXP);// gyro need to add class in order to fit to our library, which means that it
                                        // need a extre function to keep it work and Override it
@@ -176,7 +176,7 @@ public class DriveBase {
     public static void runTraj(Trajectory trajectory, double timeInSec) {
         Trajectory.State goal = trajectory.sample(timeInSec);
         trajField.setRobotPose(goal.poseMeters);
-        
+
         var chaspeed = ramseteController.calculate(odometry.getPoseMeters(), goal);
 
         // Convert chassis speed to wheel speed

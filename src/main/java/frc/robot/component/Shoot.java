@@ -8,21 +8,20 @@ import frc.robot.Robot;
 public class Shoot {
     public static CANSparkMax shoot;
     private static int ksparkMax = 0;
-    
-    public static void init(){
-        shoot = new CANSparkMax(ksparkMax,MotorType.kBrushless);
+
+    public static void init() {
+        shoot = new CANSparkMax(ksparkMax, MotorType.kBrushless);
     }
-    
-    public static void teleop(){
-        if(Robot.maincontrol.getBButton()){
+
+    public static void teleop() {
+        if (Robot.maincontrol.getBButton()) {
             shoot.set(0.6);
-        }
-        else{
+        } else {
             shoot.set(0);
         }
     }
 
-    public static void autoshoot(double a){
+    public static void autoshoot(double a) {
         shoot.set(a);
     }
 }

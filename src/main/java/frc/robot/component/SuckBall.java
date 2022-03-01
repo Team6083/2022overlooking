@@ -15,28 +15,30 @@ public class SuckBall {
     public static DoubleSolenoid sol;
     public static XboxController xbox;
     public static CANSparkMax suck;
-    private static int ksparkMax = 0;
+    // private static int ksparkMax = 0;
 
     public static void init() {
         com = new Compressor(PneumaticsModuleType.CTREPCM);
         sol = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
         xbox = new XboxController(0);
-        suck = new CANSparkMax(ksparkMax, MotorType.kBrushless);
+        // suck = new CANSparkMax(ksparkMax, MotorType.kBrushless);
     }
 
     public static void teleop() {
         boolean a = true;
         if (Robot.maincontrol.getAButtonPressed()) {
             a = !a;
-            if (a == false) {
+            if (a == true) {
                 sol.set(Value.kForward);
-            } else if (a == true) {
+            } else if (a == false) {
                 sol.set(Value.kReverse);
+            } else {
+                sol.set(Value.kOff);
             }
         }
-        if(Robot.maincontrol.getYButton()){
-            suck.set(0.5);
-        }
+        // if(Robot.maincontrol.getYButton()){
+        // suck.set(0.5);
+        // }
 
     }
 }
