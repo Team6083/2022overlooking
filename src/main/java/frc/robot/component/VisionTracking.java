@@ -6,14 +6,13 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
 public class VisionTracking {
   public static double a = 0.5;
   public static PIDController pid;
-  public static XboxController xbox;
   public static NetworkTable table;
   public static double tv;
   public static double tx;
@@ -26,42 +25,42 @@ public class VisionTracking {
   private final static double speed = 0.1;
   private static boolean R = false;
   private static boolean L = false;
-    public static void init(){
-      xbox = new XboxController(0);
-      pid = new PIDController(0.1, 0.1, 0.1);//values need to be confirmed
-      rightlimitSwitch = new DigitalInput(0);
-      leftlimitSwitch = new DigitalInput(1);
-      turnmotor = new WPI_VictorSPX(s);
-      setLEDMode(3);
-    }
 
-     
-  public static void teleop(){
+  public static void init() {
+
+    pid = new PIDController(0.1, 0.1, 0.1);// values need to be confirmed
+    rightlimitSwitch = new DigitalInput(0);
+    leftlimitSwitch = new DigitalInput(1);
+    turnmotor = new WPI_VictorSPX(s);
+    setLEDMode(3);
+  }
+
+  public static void teleop() {
 
     double rota = pid.calculate(tx);
 
-    if(rota>0.7){
+    if (rota > 0.7) {
       rota = 0.7;
-    }
-    else if(rota<-0.7){
+    } else if (rota < -0.7) {
       rota = -0.7;
     }
-    if(xbox.getYButtonPressed()){
+    if (Robot.maincontrol.getYButtonPressed()) {
       A = !A;
     }
- 
-    if(A!=true){
-     setLEDMode(1);
-     setCamMode(1);
+
+    if (A != true) {
+      setLEDMode(1);
+      setCamMode(1);
     }
 
-    else if(A){
-     setLEDMode(0);
-     setCamMode(3);
-     limelight_tracking();
+    else if (A) {
+      setLEDMode(0);
+      setCamMode(3);
+      limelight_tracking();
     }
-   }
-   public static void seeking() {
+  }
+
+  public static void seeking() {
     if (tv == 0) {
       turnmotor.set(speed);
       if (rightlimitSwitch.get()) {
@@ -80,22 +79,24 @@ public class VisionTracking {
       limelight_tracking();
     }
   }
-   public static void limelight_tracking(){
+
+  public static void limelight_tracking() {
     table = NetworkTableInstance.getDefault().getTable("limelight");
     tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     double rota = pid.calculate(tx);
     turnmotor.set(rota);
-   }
-   public static void autonumous(){
+  }
+
+  public static void autonumous() {
     setLEDMode(0);
     setCamMode(3);
     double rota = pid.calculate(tx);
     Shoot.autoshoot(rota);
-   }
+  }
 
-   /**
+  /**
    * 0 use the LED Mode set in the current pipeline 1 force off 2 force blink 3
    * force on
    * 
