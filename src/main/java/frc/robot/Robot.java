@@ -8,6 +8,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.component.DriveBase;
+import frc.robot.component.RisingUp;
 import frc.robot.component.Shoot;
 import frc.robot.component.SuckBall;
 import frc.robot.component.Transport;
@@ -39,6 +40,7 @@ public class Robot extends TimedRobot {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
     DriveBase.init();
+    RisingUp.init();
     Shoot.init();
     SuckBall.init();
     Transport.init();
@@ -62,12 +64,12 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {
-  }
+  public void teleopInit() {}
 
   @Override
   public void teleopPeriodic() {
     DriveBase.teleop();
+    RisingUp.teleop();
     Shoot.teleop();
     SuckBall.teleop();
     Transport.teleop();
@@ -75,18 +77,14 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledInit() {
-  }
+  public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {
-  }
+  public void disabledPeriodic() {}
 
   @Override
-  public void testInit() {
-  }
+  public void testInit() {}
 
   @Override
-  public void testPeriodic() {
-  }
+  public void testPeriodic() {}
 }
