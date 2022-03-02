@@ -34,14 +34,14 @@ import frc.robot.Robot;
 public class DriveBase {
 
     // port
-    private static final int Lm1 = 12;// motorControler ID
-    private static final int Lm2 = 15;
-    private static final int Rm1 = 11;
-    private static final int Rm2 = 13;
-    private static final int Re1 = 2;// Encoder ID
-    private static final int Re2 = 3;
-    private static final int Le1 = 0;
-    private static final int Le2 = 1;
+    private static final int Lm1 = 16;// motorControler ID
+    private static final int Lm2 = 11;
+    private static final int Rm1 = 14;
+    private static final int Rm2 = 12;
+    private static final int Re1 = 8;// Encoder ID
+    private static final int Re2 = 9;
+    private static final int Le1 = 6;
+    private static final int Le2 = 7;
 
     // basis drivebase
     public static WPI_VictorSPX leftMotor1;// define motor
@@ -231,7 +231,7 @@ public class DriveBase {
     public static void putDashboard() {
         SmartDashboard.putNumber("LeftEncoder", leftencoder.get());
         SmartDashboard.putNumber("RightEncoder", rightencoder.get());
-        SmartDashboard.putNumber("gyro", gyro.getAngle());
+        SmartDashboard.putNumber("Gyro", gyro.getAngle());
     }
 
     // here comes some mode to set up or update

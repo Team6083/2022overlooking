@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.Robot;
 
 public class RisingUp {
-    private static int kUp;
+    private static int kUp = 13;
     private static WPI_VictorSPX up;
     private static DigitalInput up_switch;
 
@@ -17,10 +17,10 @@ public class RisingUp {
     }
 
     public static void teleop(){
-        if(Robot.maincontrol.getPOV()==90&&up_switch.get()!=true){
+        if(Robot.maincontrol.getPOV()==0&&up_switch.get()!=true){
             up.set(ControlMode.PercentOutput, 0.7);
         }
-        else if(Robot.maincontrol.getPOV()==270&&up_switch.get()!=true){
+        else if(Robot.maincontrol.getPOV()==180&&up_switch.get()!=true){
             up.set(ControlMode.PercentOutput, -0.7);
         }
         else if(up_switch.get()==true){

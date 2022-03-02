@@ -7,14 +7,14 @@ import frc.robot.Robot;
 
 public class Shoot {
     public static CANSparkMax shoot;
-    private static int ksparkMax = 0;
+    private static int ksparkMax = 19;
 
     public static void init() {
         shoot = new CANSparkMax(ksparkMax, MotorType.kBrushless);
     }
 
     public static void teleop() {
-        if (Robot.maincontrol.getYButton()) {
+        if (Robot.maincontrol.getBButton()) {
             shoot.set(0.6);
         } else {
             shoot.set(0);

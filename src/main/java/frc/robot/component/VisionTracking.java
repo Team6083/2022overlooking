@@ -20,16 +20,17 @@ public class VisionTracking {
   private static DigitalInput right_LimitSwitch;
   private static DigitalInput left_LimitSwitch;
   private static WPI_VictorSPX turnMotor;
-  private static final int s = 10;
-  private static final double speed = 0.1;
+  private static final int kturn = 18;
+  private static double speed = 0.5;
   private static String R_warn = "Can't go to the right side anymore";
   private static String L_warn = "Can't go to the left side anymore";
 
   public static void init() {
-    pid = new PIDController(0.1, 0.1, 0.1);// values need to be confirmed
-    right_LimitSwitch = new DigitalInput(0);
-    left_LimitSwitch = new DigitalInput(1);
-    turnMotor = new WPI_VictorSPX(s);
+    pid = new PIDController(0.1, 0, 0);// values need to be confirmed
+    pid.setSetpoint(0);
+    right_LimitSwitch = new DigitalInput(5);
+    left_LimitSwitch = new DigitalInput(4);
+    turnMotor = new WPI_VictorSPX(kturn);
     setLEDMode(1);
     setCamMode(1);
   }
@@ -39,43 +40,41 @@ public class VisionTracking {
       Limelight_Switch = !Limelight_Switch;
     }
 
-    if (Limelight_Switch != true) {
+    if (Limelight_Switch) {
+      setLEDMode(0);
+      setCamMode(0);
+      seeking();
+    } else {
       setLEDMode(1);
       setCamMode(1);
       handControl();
-    }
-    else if (Limelight_Switch) {
-      setLEDMode(0);
-      setCamMode(3);
-      limelight_tracking();
     }
 
     showDashboard();
   }
 
-  public static void handControl(){
-    if(Robot.vicecontrol.getPOV()==0){
-      turnMotor.set(0.3);
+  public static void handControl() {
+    double handSpeed = -Robot.vicecontrol.getLeftTriggerAxis() + Robot.vicecontrol.getRightTriggerAxis();
+    
+    if (handSpeed > 0 && right_LimitSwitch.get()) {
+      handSpeed = 0;
+    } else if (handSpeed < 0 && left_LimitSwitch.get()) {
+      handSpeed = 0;
     }
-    else if(Robot.vicecontrol.getPOV()==180){
-      turnMotor.set(-0.3);
-    }
-    else{
-      turnMotor.set(0);
-    }
+
+    turnMotor.set(handSpeed);
   }
 
   public static void seeking() {
+    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     if (tv == 0) {
+      
+      if (right_LimitSwitch.get()&&speed>0) {
+        speed = -speed;
+      } else if (left_LimitSwitch.get()&&speed<0) {
+        speed = -speed;
+      }
       turnMotor.set(speed);
-      if (right_LimitSwitch.get()) {
-        turnMotor.set(-speed);// reverse
-        // platemotor.set(0)
-      }
-      if (left_LimitSwitch.get()) {
-        turnMotor.set(speed);// reverse
-        // platemotor.set(0);
-      }
     } else {
       limelight_tracking();
     }
@@ -83,30 +82,26 @@ public class VisionTracking {
 
   public static void limelight_tracking() {
     table = NetworkTableInstance.getDefault().getTable("limelight");
-    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
     double rota = pid.calculate(tx);
-    
-    if(rota>0.5){
+
+    if (rota > 0.5) {
       rota = 0.5;
-    }
-    else if(rota<-0.5){
+    } else if (rota < -0.5) {
       rota = -0.5;
-    }
-    else if(right_LimitSwitch.get()){
+    } else if (right_LimitSwitch.get()) {
       rota = 0;
       SmartDashboard.putString("warning", R_warn);
-    }
-    else if(left_LimitSwitch.get()){
+    } else if (left_LimitSwitch.get()) {
       rota = 0;
       SmartDashboard.putString("warning", L_warn);
     }
     turnMotor.set(rota);
-
+    SmartDashboard.putNumber("rota", rota);
   }
 
-  public static void showDashboard(){
+  public static void showDashboard() {
     SmartDashboard.putBoolean("Right_limitation", right_LimitSwitch.get());
     SmartDashboard.putBoolean("Left_limitation", left_LimitSwitch.get());
     SmartDashboard.putNumber("tx", tx);
@@ -168,6 +163,11 @@ public class VisionTracking {
    */
   public static double getLatencyContribution() {
     return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0);
+  }
+
+  public static void disableLimeLight() {
+    setCamMode(1);
+    setLEDMode(1);
   }
 
 }
