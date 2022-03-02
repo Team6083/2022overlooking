@@ -2,6 +2,7 @@ package frc.robot.component;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.ColorSensorV3.MainControl;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Encoder;
@@ -136,8 +137,19 @@ public class DriveBase {
     public static void teleop() {
 
         putDashboard();
-
-        drive.tankDrive(-Robot.maincontrol.getLeftY() / 2, Robot.maincontrol.getRightY() / 2);
+        if(Robot.maincontrol.getRightBumper()&&Robot.maincontrol.getLeftBumper()){
+        drive.tankDrive(-Robot.maincontrol.getLeftY(), Robot.maincontrol.getRightY());
+        }
+        else if(Robot.maincontrol.getRightBumper()){
+            drive.tankDrive(-Robot.maincontrol.getLeftY() / 2 , Robot.maincontrol.getRightY());
+        }
+        else if(Robot.maincontrol.getLeftBumper()){
+            drive.tankDrive(-Robot.maincontrol.getLeftY() , Robot.maincontrol.getRightY() / 2);
+        }
+        else{
+            drive.tankDrive(-Robot.maincontrol.getLeftY() / 2, Robot.maincontrol.getRightY() / 2);
+        }
+        
         // the "tank Drive" allow driver to control drivebase motors with two Axis,
         // left YAxis and right YAxis, which are relate to different side of the motors.
         // Then, the output of the motor is base on the Axis's number
