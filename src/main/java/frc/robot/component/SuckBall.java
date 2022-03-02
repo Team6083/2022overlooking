@@ -12,12 +12,13 @@ public class SuckBall {
     public static Compressor com;
     public static DoubleSolenoid sol;
     public static WPI_VictorSPX suck;
-    private static int su = 0;
+    private static int ksuck = 0;
 
     public static void init() {
         com = new Compressor(PneumaticsModuleType.CTREPCM);
         sol = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-        suck = new WPI_VictorSPX(su);
+        suck = new WPI_VictorSPX(ksuck);
+        com.enableDigital();
     }
 
     private static boolean a = true;

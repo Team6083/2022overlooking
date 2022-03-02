@@ -14,7 +14,7 @@ public class Shoot {
     }
 
     public static void teleop() {
-        if (Robot.maincontrol.getBButton()) {
+        if (Robot.maincontrol.getYButton()) {
             shoot.set(0.6);
         } else {
             shoot.set(0);

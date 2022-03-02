@@ -79,6 +79,9 @@ public class NewAutoEngine {
         DriveBase.resetPIDs();
         autoSelected = chooser.getSelected();
 
+        double autoDelayTime = SmartDashboard.getNumber("AutoDelay", 0);
+        
+        Timer.delay(SmartDashboard.getNumber("autoDelay", autoDelayTime));
         timer.reset();
         timer.start();
     }

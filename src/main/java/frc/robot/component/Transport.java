@@ -6,15 +6,15 @@ import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 
 public class Transport {
     private static double dis = 10;
     private static WPI_VictorSPX tran;
+    private static int ktran = 0;
     private static Rev2mDistanceSensor distSens;
 
     public static void init() {
-        tran = new WPI_VictorSPX(0);
+        tran = new WPI_VictorSPX(ktran);
         distSens = new Rev2mDistanceSensor(Port.kOnboard);
         distSens.setAutomaticMode(true);
 
@@ -27,11 +27,5 @@ public class Transport {
             tran.set(ControlMode.PercentOutput, 0);
         }
         SmartDashboard.putNumber("Range", distSens.getRange());
-        SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
-        if (Robot.vicecontrol.getBButton()) {
-            tran.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.vicecontrol.getAButton()) {
-            tran.set(ControlMode.PercentOutput, -0.5);
-        }
     }
 }
