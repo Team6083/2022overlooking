@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.component.DriveBase;
+import frc.robot.component.Shoot;
 import frc.robot.component.VisionTracking;
 
 public class NewAutoEngine {
@@ -152,7 +153,8 @@ public class NewAutoEngine {
                 }
                 break;
             case 2:// O2 shoot
-            VisionTracking.autonumous();
+            VisionTracking.limelight_tracking();
+            Shoot.autoshoot(0.5);
                 break;
             case 3:// O2 to G2
                 DriveBase.runTraj(trajectory[tarmacR1[1]], timer.get());
@@ -165,7 +167,8 @@ public class NewAutoEngine {
             case 4:// G2 suck
                 break;
             case 5:// G2 shoot
-                VisionTracking.autonumous();
+                VisionTracking.limelight_tracking();
+                Shoot.autoshoot(0.5);
                 break;
         }
     }
@@ -192,7 +195,8 @@ public class NewAutoEngine {
                 }
                 break;
             case 2:// P2 shoot
-            VisionTracking.autonumous();
+            VisionTracking.limelight_tracking();
+            Shoot.autoshoot(0.5);
                 break;
             case 3:// P2 to F2
                 DriveBase.runTraj(trajectory[tarmacR2[1]], timer.get());
@@ -205,7 +209,8 @@ public class NewAutoEngine {
             case 4:// F2 suck
                 break;
             case 5:// F2 shoot
-            VisionTracking.autonumous();
+            VisionTracking.limelight_tracking();
+            Shoot.autoshoot(0.5);
                 break;
         }
     }
@@ -232,7 +237,8 @@ public class NewAutoEngine {
                 }
                 break;
             case 2:// S2 shoot
-            VisionTracking.autonumous();
+            VisionTracking.limelight_tracking();
+            Shoot.autoshoot(0.5);
                 break;
             case 3:// S2 to K2
                 DriveBase.runTraj(trajectory[tarmacR3[1]], timer.get());
@@ -245,7 +251,8 @@ public class NewAutoEngine {
             case 4:// K2 suck
                 break;
             case 5:// K2 shoot
-            VisionTracking.autonumous();
+            VisionTracking.limelight_tracking();
+            Shoot.autoshoot(0.5);
                 break;
         }
     }
