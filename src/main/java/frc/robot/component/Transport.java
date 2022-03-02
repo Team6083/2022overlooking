@@ -6,6 +6,7 @@ import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 
 public class Transport {
     private static double dis = 10;
@@ -27,5 +28,10 @@ public class Transport {
         }
         SmartDashboard.putNumber("Range", distSens.getRange());
         SmartDashboard.putNumber("Timestamp", distSens.getTimestamp());
+        if (Robot.vicecontrol.getBButton()) {
+            tran.set(ControlMode.PercentOutput, 0.5);
+        } else if (Robot.vicecontrol.getAButton()) {
+            tran.set(ControlMode.PercentOutput, -0.5);
+        }
     }
 }
