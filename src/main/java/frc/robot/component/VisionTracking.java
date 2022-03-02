@@ -11,7 +11,6 @@ import frc.robot.Robot;
 
 public class VisionTracking {
 
-  private static double a = 0.5;
   private static PIDController pid;
   private static NetworkTable table;
   private static double tv;
