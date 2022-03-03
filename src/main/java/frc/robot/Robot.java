@@ -35,8 +35,6 @@ public class Robot extends TimedRobot {
    */
   public static XboxController maincontrol;
   public static XboxController vicecontrol;
-  public static UsbCamera camera1;
-  public static UsbCamera camera2;
 
   @Override
   public void robotInit() {
@@ -49,8 +47,7 @@ public class Robot extends TimedRobot {
     Transport.init();
     // VisionTracking.init();
     // NewAutoEngine.init();
-    camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
+    // Camera.init();
   }
 
   @Override
