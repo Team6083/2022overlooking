@@ -135,45 +135,34 @@ public class DriveBase {
     // Here comes some function to control robot
     // normal drivebase
     public static void teleop() {
-        boolean changeback=false;
-        if(Robot.vicecontrol.getXButtonPressed()){
-            changeback=!changeback;
+        boolean changeback = false;
+        double leftV = -Robot.maincontrol.getLeftY() * 0.8;
+        double rightV = Robot.maincontrol.getRightY() * 0.8;
+
+        if (Robot.vicecontrol.getXButtonPressed()) {
+            changeback = !changeback;
         }
+        if (changeback == false) {
+            if (Robot.maincontrol.getRightBumper()) {
+                rightV = 1;
+            }
+            if (Robot.maincontrol.getLeftBumper()) {
+                leftV = -1;
+            }
+        }
+        if (changeback == true) {
+            leftV = -leftV;
+            rightV = -rightV;
+            if (Robot.maincontrol.getRightBumper()) {
+                rightV = -1;
+            }
+            if (Robot.maincontrol.getLeftBumper()) {
+                leftV = 1;
+            }
+        }
+        drive.tankDrive(leftV, rightV);
+
         putDashboard();
-        if(changeback==true){
-            if(Robot.maincontrol.getRightBumper()&&Robot.maincontrol.getLeftBumper()){
-                drive.tankDrive(-Robot.maincontrol.getLeftY(), Robot.maincontrol.getRightY());
-                }
-                else if(Robot.maincontrol.getRightBumper()){
-                    drive.tankDrive(-Robot.maincontrol.getLeftY() / 2 , Robot.maincontrol.getRightY());
-                }
-                else if(Robot.maincontrol.getLeftBumper()){
-                    drive.tankDrive(-Robot.maincontrol.getLeftY() , Robot.maincontrol.getRightY() / 2);
-                }
-                else{
-                    drive.tankDrive(-Robot.maincontrol.getLeftY() / 2, Robot.maincontrol.getRightY() / 2);
-                }    
-        }
-        else if(changeback!=true){
-            if(Robot.maincontrol.getRightBumper()&&Robot.maincontrol.getLeftBumper()){
-                drive.tankDrive(Robot.maincontrol.getLeftY(), -Robot.maincontrol.getRightY());
-                }
-                else if(Robot.maincontrol.getRightBumper()){
-                    drive.tankDrive(Robot.maincontrol.getLeftY() / 2 , -Robot.maincontrol.getRightY());
-                }
-                else if(Robot.maincontrol.getLeftBumper()){
-                    drive.tankDrive(Robot.maincontrol.getLeftY() , -Robot.maincontrol.getRightY() / 2);
-                }
-                else{
-                    drive.tankDrive(Robot.maincontrol.getLeftY() / 2, -Robot.maincontrol.getRightY() / 2);
-                }
-        }
-        // the "tank Drive" allow driver to control drivebase motors with two Axis,
-        // left YAxis and right YAxis, which are relate to different side of the motors.
-        // Then, the output of the motor is base on the Axis's number
-        if (Robot.maincontrol.getXButton()) {
-            gyro.reset();
-        }
     }
 
     // This is for Limelight Visiontracking
