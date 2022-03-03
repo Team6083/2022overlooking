@@ -4,15 +4,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.component.Camera;
 import frc.robot.component.DriveBase;
-import frc.robot.component.RisingUp;
 import frc.robot.component.Shoot;
 import frc.robot.component.SuckBall;
 import frc.robot.component.Transport;
+import frc.robot.component.RisingUp;
 import frc.robot.component.VisionTracking;
 import frc.robot.system.NewAutoEngine;
 
@@ -40,14 +39,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
-    DriveBase.init();
-    RisingUp.init();
-    Shoot.init();
-    SuckBall.init();
-    Transport.init();
+    // DriveBase.init();
+    // RisingUp.init();
+    // Shoot.init();
+    // SuckBall.init();
+    // Transport.init();
     // VisionTracking.init();
     // NewAutoEngine.init();
-    // Camera.init();
+    Camera.init();
   }
 
   @Override
@@ -70,11 +69,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    DriveBase.teleop();
-    RisingUp.teleop();
-    Shoot.teleop();
-    SuckBall.teleop();
-    Transport.teleop();
+    // DriveBase.teleop();
+    // RisingUp.teleop();
+    // Shoot.teleop();
+    // SuckBall.teleop();
+    // Transport.teleop();
+    Camera.teleop();
     // VisionTracking.teleop();
   }
 
