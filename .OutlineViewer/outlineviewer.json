@@ -1,0 +1,14 @@
+{
+  "CameraPublisher": {
+    "open": true
+  },
+  "NetworkTables Settings": {
+    "mode": "Client"
+  },
+  "SmartDashboard": {
+    "open": true
+  },
+  "limelight": {
+    "open": true
+  }
+}

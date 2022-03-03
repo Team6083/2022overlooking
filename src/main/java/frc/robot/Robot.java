@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.component.DriveBase;
@@ -34,20 +35,22 @@ public class Robot extends TimedRobot {
    */
   public static XboxController maincontrol;
   public static XboxController vicecontrol;
+  public static UsbCamera camera1;
+  public static UsbCamera camera2;
 
   @Override
   public void robotInit() {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
-     DriveBase.init();
+    DriveBase.init();
     RisingUp.init();
-     Shoot.init();
-     SuckBall.init();
-     Transport.init();
-     //VisionTracking.init();
+    Shoot.init();
+    SuckBall.init();
+    Transport.init();
+    // VisionTracking.init();
     // NewAutoEngine.init();
-    CameraServer.startAutomaticCapture(0);
-    CameraServer.startAutomaticCapture(1);
+    camera1 = CameraServer.startAutomaticCapture(0);
+    camera2 = CameraServer.startAutomaticCapture(1);
   }
 
   @Override
@@ -65,15 +68,16 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+  }
 
   @Override
   public void teleopPeriodic() {
-     DriveBase.teleop();
+    DriveBase.teleop();
     RisingUp.teleop();
-     Shoot.teleop();
-     SuckBall.teleop();
-     Transport.teleop();
+    Shoot.teleop();
+    SuckBall.teleop();
+    Transport.teleop();
     // VisionTracking.teleop();
   }
 
@@ -83,11 +87,14 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+  }
 
   @Override
-  public void testInit() {}
+  public void testInit() {
+  }
 
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+  }
 }
