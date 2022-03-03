@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.component.DriveBase;
@@ -45,7 +46,8 @@ public class Robot extends TimedRobot {
      Transport.init();
      //VisionTracking.init();
     // NewAutoEngine.init();
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture(0);
+    CameraServer.startAutomaticCapture(1);
   }
 
   @Override
