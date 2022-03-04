@@ -4,8 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.component.Camera;
 import frc.robot.component.DriveBase;
 import frc.robot.component.Shoot;
@@ -51,6 +53,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    SmartDashboard.putBoolean("ds/isFMSAtt", DriverStation.isFMSAttached());
+    SmartDashboard.putNumber("ds/matchTime", DriverStation.getMatchTime());
+
+    if (!DriverStation.isEnabled()) {
+      SmartDashboard.putNumber("ds/mode", 0);
+    } else if (DriverStation.isTeleop()) {
+      SmartDashboard.putNumber("ds/mode", 2);
+    } else if (DriverStation.isAutonomous()) {
+      SmartDashboard.putNumber("ds/mode", 1);
+    } else if (DriverStation.isTest()) {
+      SmartDashboard.putNumber("ds/mode", 3);
+    }
   }
 
   @Override
