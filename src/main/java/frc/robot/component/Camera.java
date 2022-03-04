@@ -3,7 +3,6 @@ package frc.robot.component;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoSink;
-import frc.robot.Robot;
 
 public class Camera {
     public static UsbCamera camera1;
@@ -17,5 +16,5 @@ public class Camera {
         camera2.setFPS(15);
         camera1.setResolution(320, 640);
     }
-    
+
 }

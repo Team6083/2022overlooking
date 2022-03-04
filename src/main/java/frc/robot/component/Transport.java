@@ -5,7 +5,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
@@ -21,15 +20,14 @@ public class Transport {
         distSens.setAutomaticMode(true);
 
     }
+
     public static void teleop() {
 
-        if(Robot.vicecontrol.getPOV()==180){
+        if (Robot.vicecontrol.getPOV() == 180) {
             tran.set(ControlMode.PercentOutput, 0.4);
-        }
-        else if(Robot.vicecontrol.getPOV()==0){
+        } else if (Robot.vicecontrol.getPOV() == 0) {
             tran.set(ControlMode.PercentOutput, -0.4);
-        }
-        else {
+        } else {
             tran.set(ControlMode.PercentOutput, 0);
         }
         SmartDashboard.putNumber("Range", distSens.getRange());

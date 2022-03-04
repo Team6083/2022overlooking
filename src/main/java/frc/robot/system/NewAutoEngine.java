@@ -262,6 +262,7 @@ public class NewAutoEngine {
                 break;
         }
     }
+
     public static void DoDreamR2() {
         switch (currentStep) {
             case 0:// Initialize robot position
@@ -296,6 +297,7 @@ public class NewAutoEngine {
                 break;
         }
     }
+
     public static void DoDreamB1() {
         switch (currentStep) {
             case 0:// Initialize robot position
@@ -330,6 +332,7 @@ public class NewAutoEngine {
                 break;
         }
     }
+
     public static void DoDreamB2() {
         switch (currentStep) {
             case 0:// Initialize robot position

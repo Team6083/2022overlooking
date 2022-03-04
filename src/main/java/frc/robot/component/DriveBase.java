@@ -1,46 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 package frc.robot.component;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
@@ -180,14 +138,13 @@ public class DriveBase {
         double leftV = -Robot.maincontrol.getLeftY() * 0.8;
         double rightV = Robot.maincontrol.getRightY() * 0.8;
 
-            if (Robot.maincontrol.getRightBumper()) {
-                rightV = 1;
-            }
-            if (Robot.maincontrol.getLeftBumper()) {
-                leftV = -1;
-            }
-        
-      
+        if (Robot.maincontrol.getRightBumper()) {
+            rightV = 1;
+        }
+        if (Robot.maincontrol.getLeftBumper()) {
+            leftV = -1;
+        }
+
         drive.tankDrive(leftV, rightV);
 
         putDashboard();

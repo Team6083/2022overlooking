@@ -11,20 +11,19 @@ public class RisingUp {
     private static WPI_VictorSPX up;
     private static DigitalInput up_switch;
 
-    public static void init(){
+    public static void init() {
         up = new WPI_VictorSPX(kUp);
         up_switch = new DigitalInput(3);
     }
 
-    public static void teleop(){
-        if(Robot.maincontrol.getPOV()==180){
+    public static void teleop() {
+        if (Robot.maincontrol.getPOV() == 180) {
             up.set(ControlMode.PercentOutput, 0.3);
-        }
-        else if(Robot.maincontrol.getPOV()==0){
+        } else if (Robot.maincontrol.getPOV() == 0) {
             up.set(ControlMode.PercentOutput, -0.7);
         }
 
-        else{
+        else {
             up.set(ControlMode.PercentOutput, 0);
         }
     }
