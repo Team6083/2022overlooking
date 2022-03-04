@@ -17,15 +17,13 @@ public class RisingUp {
     }
 
     public static void teleop(){
-        if(Robot.vicecontrol.getPOV()==180){
+        if(Robot.maincontrol.getPOV()==180){
             up.set(ControlMode.PercentOutput, 0.3);
         }
-        else if(Robot.vicecontrol.getPOV()==0&&up_switch.get()!=true){
-            up.set(ControlMode.PercentOutput, -0.5);
+        else if(Robot.maincontrol.getPOV()==0){
+            up.set(ControlMode.PercentOutput, -0.7);
         }
-        else if(up_switch.get()==true){
-            up.set(ControlMode.PercentOutput, 0);
-        }
+
         else{
             up.set(ControlMode.PercentOutput, 0);
         }

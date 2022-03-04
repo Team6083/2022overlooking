@@ -26,7 +26,7 @@ public class VisionTracking {
   private static String L_warn = "Can't go to the left side anymore";
 
   public static void init() {
-    pid = new PIDController(0.1, 0, 0);// values need to be confirmed
+    pid = new PIDController(0.5, 0, 0);// values need to be confirmed
     pid.setSetpoint(0);
     right_LimitSwitch = new DigitalInput(5);
     left_LimitSwitch = new DigitalInput(4);
@@ -36,7 +36,7 @@ public class VisionTracking {
   }
 
   public static void teleop() {
-    if (Robot.maincontrol.getXButtonPressed()) {
+    if (Robot.vicecontrol.getXButtonPressed()) {
       Limelight_Switch = !Limelight_Switch;
     }
 
@@ -44,8 +44,7 @@ public class VisionTracking {
       setLEDMode(0);
       setCamMode(0);
       seeking();
-
-      
+ 
     } else {
       setLEDMode(1);
       setCamMode(1);
@@ -86,12 +85,12 @@ public class VisionTracking {
     table = NetworkTableInstance.getDefault().getTable("limelight");
     tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
     ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-    double rota = pid.calculate(tx);
+    double rota = -pid.calculate(tx);
 
-    if (rota > 0.5) {
-      rota = 0.5;
-    } else if (rota < -0.5) {
-      rota = -0.5;
+    if (rota > 0.7) {
+      rota = 0.7;
+    } else if (rota < -0.7) {
+      rota = -0.7;
     } else if (right_LimitSwitch.get()) {
       rota = 0;
       SmartDashboard.putString("warning", R_warn);

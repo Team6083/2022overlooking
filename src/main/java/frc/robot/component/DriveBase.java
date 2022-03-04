@@ -45,7 +45,6 @@ package frc.robot.component;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.ColorSensorV3.MainControl;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Encoder;
@@ -178,31 +177,17 @@ public class DriveBase {
     // Here comes some function to control robot
     // normal drivebase
     public static void teleop() {
-        boolean changeback = false;
         double leftV = -Robot.maincontrol.getLeftY() * 0.8;
         double rightV = Robot.maincontrol.getRightY() * 0.8;
 
-        if (Robot.vicecontrol.getXButtonPressed()) {
-            changeback = !changeback;
-        }
-        if (changeback == false) {
             if (Robot.maincontrol.getRightBumper()) {
                 rightV = 1;
             }
             if (Robot.maincontrol.getLeftBumper()) {
                 leftV = -1;
             }
-        }
-        if (changeback == true) {
-            leftV = -leftV;
-            rightV = -rightV;
-            if (Robot.maincontrol.getRightBumper()) {
-                rightV = -1;
-            }
-            if (Robot.maincontrol.getLeftBumper()) {
-                leftV = 1;
-            }
-        }
+        
+      
         drive.tankDrive(leftV, rightV);
 
         putDashboard();
