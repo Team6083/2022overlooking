@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.component.DriveBase;
 import frc.robot.component.Shoot;
 import frc.robot.component.SuckBall;
-import frc.robot.component.Transport;
 import frc.robot.component.VisionTracking;
 
 public class NewAutoEngine {
