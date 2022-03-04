@@ -13,23 +13,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.component.DriveBase;
 import frc.robot.component.Shoot;
 import frc.robot.component.SuckBall;
+import frc.robot.component.Transport;
 import frc.robot.component.VisionTracking;
 
 public class NewAutoEngine {
 
     static int currentStep = 0;
-    static int trajectoryAmount = 12;
-    static int[] tarmacR1 = { 0 };
-    static int[] tarmacR2 = { 1 };
-    static int[] tarmacB1 = { 2 };
-    static int[] tarmacB2 = { 3 };
-    static int[] dreamR1 = { 4, 5 };
-    static int[] dreamR2 = { 6, 7 };
-    static int[] dreamB1 = { 8, 9 };
-    static int[] dreamB2 = { 10, 11 };
+    static int trajectoryAmount = 8;
+    static int[] dreamR1 = { 1, 2 };
+    static int[] dreamR2 = { 3, 4 };
+    static int[] dreamB1 = { 5, 6 };
+    static int[] dreamB2 = { 7, 8 };
     static String[] trajectoryJSON = {
-            "/home/lvuser/deploy/output/tarmacR1.wpilib.json", "/home/lvuser/deploy/output/tarmacR2.wpilib.json",
-            "/home/lvuser/deploy/output/tarmacB1.wpilib.json", "/home/lvuser/deploy/output/tarmacB2.wpilib.json",
             "/home/lvuser/deploy/output/dreamR1-1.wpilib.json", "/home/lvuser/deploy/output/dreamR1-2.wpilib.json",
             "/home/lvuser/deploy/output/dreamR2-1.wpilib.json", "/home/lvuser/deploy/output/draemR2-2.wpilib.json",
             "/home/lvuser/deploy/output/dreamB1-1.wpilib.json", "/home/lvuser/deploy/output/dreamB1-2.wpilib.json",
@@ -41,10 +36,7 @@ public class NewAutoEngine {
     protected static Timer timer = new Timer();
     protected static SendableChooser<String> chooser;
     protected static String autoSelected;
-    protected static final String TarmacR1 = "TarmacR1";
-    protected static final String TarmacR2 = "TarmacR2";
-    protected static final String TarmacB1 = "TarmacB1";
-    protected static final String TarmacB2 = "TarmacB2";
+    protected static final String StepBack = "StepBack";
     protected static final String DreamR1 = "DreamR1";
     protected static final String DreamR2 = "DreamR2";
     protected static final String DreamB1 = "DreamB1";
@@ -90,18 +82,8 @@ public class NewAutoEngine {
         SmartDashboard.putNumber("AutoTimer", timer.get());
         SmartDashboard.putNumber("CurrentStep", currentStep);
         switch (autoSelected) {
-            case TarmacR1:
-                DoTarmacR1();
-                break;
-            case TarmacR2:
-                DoTarmacR2();
-                break;
-            case TarmacB1:
-                DoTarmacB1();
-                break;
-            case TarmacB2:
-                DoTarmacB2();
-                break;
+            case StepBack:
+                DoStepBack();
             case DreamR1:
                 DoDreamR1();
                 break;
@@ -122,10 +104,6 @@ public class NewAutoEngine {
 
     private static void chooserSetting() {
         chooser.setDefaultOption("Do Nothing", DoNothing);
-        chooser.addOption("tarmacR1", TarmacR1);
-        chooser.addOption("tarmacR2", TarmacR2);
-        chooser.addOption("tarmacB1", TarmacB1);
-        chooser.addOption("tarmacB2", TarmacB2);
         chooser.addOption("dreamR1", DreamR1);
         chooser.addOption("dreamR2", DreamR2);
         chooser.addOption("dreamB1", DreamB1);
@@ -133,100 +111,35 @@ public class NewAutoEngine {
         SmartDashboard.putData("Auto Choice", chooser);
     }
 
-    public static void DoTarmacR1() {
-        switch (currentStep) {
-            case 0:// Initialize robot position
-                currentStep++;
-                timer.reset();
-                timer.start();
-                DriveBase.odometry.resetPosition(trajectory[tarmacR1[0]].getInitialPose(),
-                        trajectory[tarmacR1[0]].getInitialPose().getRotation());
-                DriveBase.resetEnc();
-                break;
-            case 1:
-                DriveBase.runTraj(trajectory[tarmacR1[0]], timer.get());
-                if (timer.get() > trajectory[tarmacR1[0]].getTotalTimeSeconds()) {
+    public static void DoStepBack(){
+        timer.start();
+        double time = timer.get();
+        switch(currentStep){
+            case 0:
+                DriveBase.directControl(0.4, 0.4);
+                if(time>0&&time<4){
                     currentStep++;
-                    timer.reset();
-                    timer.start();
+                }
+            case 1:
+                SuckBall.autoSuck(0.4);
+                if(time>4&&time<7){
+                    SuckBall.autoSuck(0.3);
+                }
+                else if(time>7&&time<3){
+                    SuckBall.autoSuck(0.3);
+                    Shoot.autoshoot(0.6);
+                }
+                else if(time>11){
+                    currentStep++;
                 }
             case 2:
-                VisionTracking.limelight_tracking();
-                Shoot.autoshoot(0.5);
-                break;
-        }
-    }
+                DriveBase.directControl(0, 0);
+                SuckBall.autoSuck(0);
+                Shoot.autoshoot(0);
+                
 
-    public static void DoTarmacR2() {
-        switch (currentStep) {
-            case 0:// Initialize robot position
-                currentStep++;
-                timer.reset();
-                timer.start();
-                DriveBase.odometry.resetPosition(trajectory[tarmacR2[0]].getInitialPose(),
-                        trajectory[tarmacR2[0]].getInitialPose().getRotation());
-                DriveBase.resetEnc();
-                break;
-            case 1:
-                DriveBase.runTraj(trajectory[tarmacR2[0]], timer.get());
-                if (timer.get() > trajectory[tarmacR2[0]].getTotalTimeSeconds()) {
-                    currentStep++;
-                    timer.reset();
-                    timer.start();
-                }
-            case 2:
-                VisionTracking.limelight_tracking();
-                Shoot.autoshoot(0.5);
-                break;
         }
-    }
-
-    public static void DoTarmacB1() {
-        switch (currentStep) {
-            case 0:// Initialize robot position
-                currentStep++;
-                timer.reset();
-                timer.start();
-                DriveBase.odometry.resetPosition(trajectory[tarmacB1[0]].getInitialPose(),
-                        trajectory[tarmacB1[0]].getInitialPose().getRotation());
-                DriveBase.resetEnc();
-                break;
-            case 1:
-                DriveBase.runTraj(trajectory[tarmacB1[0]], timer.get());
-                if (timer.get() > trajectory[tarmacB1[0]].getTotalTimeSeconds()) {
-                    currentStep++;
-                    timer.reset();
-                    timer.start();
-                }
-            case 2:
-                VisionTracking.limelight_tracking();
-                Shoot.autoshoot(0.5);
-                break;
-        }
-    }
-
-    public static void DoTarmacB2() {
-        switch (currentStep) {
-            case 0:// Initialize robot position
-                currentStep++;
-                timer.reset();
-                timer.start();
-                DriveBase.odometry.resetPosition(trajectory[tarmacB2[0]].getInitialPose(),
-                        trajectory[tarmacB2[0]].getInitialPose().getRotation());
-                DriveBase.resetEnc();
-                break;
-            case 1:
-                DriveBase.runTraj(trajectory[tarmacB2[0]], timer.get());
-                if (timer.get() > trajectory[tarmacB2[0]].getTotalTimeSeconds()) {
-                    currentStep++;
-                    timer.reset();
-                    timer.start();
-                }
-            case 2:
-                VisionTracking.limelight_tracking();
-                Shoot.autoshoot(0.5);
-                break;
-        }
+        
     }
 
     public static void DoDreamR1() {
