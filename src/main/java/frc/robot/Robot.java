@@ -39,14 +39,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
-    // DriveBase.init();
-    // RisingUp.init();
-    // Shoot.init();
-    // SuckBall.init();
-    // Transport.init();
-    // VisionTracking.init();
+    //  DriveBase.init();
+    //  RisingUp.init();
+    //  Shoot.init();
+    //  SuckBall.init();
+    //  Transport.init();
+     VisionTracking.init();
     // NewAutoEngine.init();
-    Camera.init();
+      Camera.init();
   }
 
   @Override
@@ -69,13 +69,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
-    // DriveBase.teleop();
-    // RisingUp.teleop();
-    // Shoot.teleop();
-    // SuckBall.teleop();
-    // Transport.teleop();
-    Camera.teleop();
-    // VisionTracking.teleop();
+    //  DriveBase.teleop();
+    //  RisingUp.teleop();
+    //  Shoot.teleop();
+    //  SuckBall.teleop();
+    //  Transport.teleop();
+     VisionTracking.teleop();
   }
 
   @Override

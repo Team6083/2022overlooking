@@ -17,14 +17,5 @@ public class Camera {
         camera2.setFPS(15);
         camera1.setResolution(320, 640);
     }
-
-    public static void teleop() {
-        if (Robot.vicecontrol.getYButtonPressed()) {
-           camera1 = CameraServer.startAutomaticCapture(1);
-           camera2 = CameraServer.startAutomaticCapture(0);
-        } else if (Robot.vicecontrol.getYButtonReleased()) {
-            camera1 = CameraServer.startAutomaticCapture(0);
-           camera2 = CameraServer.startAutomaticCapture(1);
-        }
-    }
+    
 }

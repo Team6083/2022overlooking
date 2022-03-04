@@ -5,11 +5,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.Rev2mDistanceSensor;
 import com.revrobotics.Rev2mDistanceSensor.Port;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class Transport {
-    private static double dis = 10;
+    private static double dis = 5;
     private static WPI_VictorSPX tran;
     private static int ktran = 15;
     private static Rev2mDistanceSensor distSens;
@@ -20,16 +21,13 @@ public class Transport {
         distSens.setAutomaticMode(true);
 
     }
-
     public static void teleop() {
-        if (distSens.getRange() > dis) {
-            tran.set(ControlMode.PercentOutput, -0.3);
+
+        if(Robot.vicecontrol.getPOV()==180){
+            tran.set(ControlMode.PercentOutput, 0.4);
         }
-        else if(Robot.maincontrol.getPOV()==180){
-            tran.set(ControlMode.PercentOutput, 0.3);
-        }
-        else if(Robot.maincontrol.getPOV()==0){
-            tran.set(ControlMode.PercentOutput, -0.3);
+        else if(Robot.vicecontrol.getPOV()==0){
+            tran.set(ControlMode.PercentOutput, -0.4);
         }
         else {
             tran.set(ControlMode.PercentOutput, 0);

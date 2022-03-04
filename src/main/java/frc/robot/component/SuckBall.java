@@ -22,7 +22,8 @@ public class SuckBall {
         com.enableDigital();
     }
 
-    private static boolean a = true;
+    private static boolean a = false;
+    private static boolean b = false;
 
     public static void teleop() {
 
@@ -34,21 +35,35 @@ public class SuckBall {
             com.disable();
         }
 
-        if (Robot.maincontrol.getAButtonPressed()) {
-            a = !a;
+        if (Robot.maincontrol.getYButton()) {
+            a = true;
+        }
+        else if(Robot.maincontrol.getRawButtonPressed(9)){
+            b = !b;
+        }
+        else{
+            a=false;
         }
 
-        if (a == true) {
+        if (a == true&&b == false) {
             sol.set(Value.kForward);
-        } else {
-            sol.set(Value.kReverse);
+            suck.set(0.7);
         }
-
-        if (Robot.maincontrol.getYButton() && sol.get() == Value.kForward) {
-            suck.set(0.5);
-        } else {
+        else if(b&&a == false){
+            sol.set(Value.kForward);
+        }
+        else if(b&&Robot.maincontrol.getRawButton(10)&&a == false){
+            suck.set(0.7);
+        }
+        else {
+            sol.set(Value.kReverse);
             suck.set(0);
         }
 
+
+    }
+
+    public static void autoSuck(double v){
+        suck.set(v);
     }
 }
