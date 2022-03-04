@@ -20,9 +20,8 @@ public class Transport {
         distSens.setAutomaticMode(true);
 
     }
-
     public static void teleop() {
-        if (distSens.getRange() > dis) {
+        if (distSens.getRange() < dis) {
             tran.set(ControlMode.PercentOutput, -0.3);
         }
         else if(Robot.maincontrol.getPOV()==180){

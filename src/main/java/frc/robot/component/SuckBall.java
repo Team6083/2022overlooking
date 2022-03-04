@@ -34,21 +34,19 @@ public class SuckBall {
             com.disable();
         }
 
-        if (Robot.maincontrol.getAButtonPressed()) {
+        if (Robot.maincontrol.getAButton()) {
             a = !a;
         }
-
         if (a == true) {
             sol.set(Value.kForward);
-        } else {
-            sol.set(Value.kReverse);
-        }
-
-        if (Robot.maincontrol.getYButton() && sol.get() == Value.kForward) {
             suck.set(0.5);
         } else {
+            sol.set(Value.kReverse);
             suck.set(0);
         }
+    }
 
+    public static void autoSuck(double v){
+        suck.set(v);
     }
 }

@@ -44,6 +44,8 @@ public class VisionTracking {
       setLEDMode(0);
       setCamMode(0);
       seeking();
+
+      
     } else {
       setLEDMode(1);
       setCamMode(1);
