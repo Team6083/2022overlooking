@@ -3,6 +3,7 @@ package frc.robot.component;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class Shoot {
@@ -23,5 +24,10 @@ public class Shoot {
 
     public static void autoshoot(double a) {
         shoot.set(a);
+    }
+
+    public static void putDashboard() {
+        SmartDashboard.putNumber("shoot/shootPower", shoot.get());
+        SmartDashboard.putNumber("shoot/shootSpeed", shoot.getEncoder().getVelocity());
     }
 }

@@ -103,10 +103,10 @@ public class VisionTracking {
     }
 
     public static void showDashboard() {
-        SmartDashboard.putBoolean("Right_limitation", right_LimitSwitch.get());
-        SmartDashboard.putBoolean("Left_limitation", left_LimitSwitch.get());
-        SmartDashboard.putNumber("tx", tx);
-        SmartDashboard.putBoolean("Limelight Switch", Limelight_Switch);
+        SmartDashboard.putBoolean("shoot/lsw", left_LimitSwitch.get());
+        SmartDashboard.putBoolean("shoot/rsw", right_LimitSwitch.get());
+        SmartDashboard.putBoolean("shoot/useLL", Limelight_Switch);
+        SmartDashboard.putNumber("shoot/turnPower", turnMotor.get());
     }
 
     /**

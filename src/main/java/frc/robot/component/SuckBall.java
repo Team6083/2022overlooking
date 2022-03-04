@@ -54,10 +54,17 @@ public class SuckBall {
             sol.set(Value.kReverse);
             suck.set(0);
         }
-
+        pubDashboard();
     }
 
     public static void autoSuck(double v) {
         suck.set(v);
+        pubDashboard();
+    }
+
+    public static void pubDashboard() {
+        SmartDashboard.putNumber("intake/power", suck.get());
+        SmartDashboard.putNumber("intake/sol", sol.get() == Value.kForward ? 1 : (sol.get() == Value.kReverse ? 2 : 0));
+        SmartDashboard.putBoolean("pneumatic/compPower", com.getPressureSwitchValue());
     }
 }

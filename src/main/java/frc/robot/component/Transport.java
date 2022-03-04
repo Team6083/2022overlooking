@@ -30,6 +30,12 @@ public class Transport {
         } else {
             tran.set(ControlMode.PercentOutput, 0);
         }
-        SmartDashboard.putNumber("Range", distSens.getRange());
+
+        putDashboard();
+    }
+
+    public static void putDashboard() {
+        SmartDashboard.putNumber("transport/power", tran.get());
+        SmartDashboard.putNumber("transport/dist", distSens.GetRange());
     }
 }

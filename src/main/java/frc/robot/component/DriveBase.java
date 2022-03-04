@@ -233,9 +233,13 @@ public class DriveBase {
     }
 
     public static void putDashboard() {
-        SmartDashboard.putNumber("LeftEncoder", leftencoder.get());
-        SmartDashboard.putNumber("RightEncoder", rightencoder.get());
+        SmartDashboard.putNumber("drive/leftSpeed", leftmotor.get());
+        SmartDashboard.putNumber("drive/rightSpeed", rightmotor.get());
+        SmartDashboard.putBoolean("drive/reverse", false);
+        SmartDashboard.putNumber("drive/leftDis", leftencoder.get());
+        SmartDashboard.putNumber("drive/rightDis", rightencoder.get());
         SmartDashboard.putNumber("Gyro", gyro.getAngle());
+        SmartDashboard.putNumber("SensorHub/heading", gyro.getAngle());
     }
 
     // here comes some mode to set up or update

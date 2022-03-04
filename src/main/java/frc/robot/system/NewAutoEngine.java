@@ -87,7 +87,8 @@ public class NewAutoEngine {
     public static void loop() {
         DriveBase.updateODO();
         DriveBase.putDashboard();
-        SmartDashboard.putNumber("Time", timer.get());
+        SmartDashboard.putNumber("AutoTimer", timer.get());
+        SmartDashboard.putNumber("CurrentStep", currentStep);
         switch (autoSelected) {
             case TarmacR1:
                 DoTarmacR1();

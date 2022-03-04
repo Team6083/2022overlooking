@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class RisingUp {
@@ -26,5 +27,10 @@ public class RisingUp {
         else {
             up.set(ControlMode.PercentOutput, 0);
         }
+    }
+
+    public static void putDashboard() {
+        SmartDashboard.putNumber("climb/power", up.get());
+        SmartDashboard.putBoolean("climb/sw", up_switch.get());
     }
 }
