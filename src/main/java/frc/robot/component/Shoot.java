@@ -20,10 +20,12 @@ public class Shoot {
         } else {
             shoot.set(0);
         }
+        putDashboard();
     }
 
     public static void autoshoot(double a) {
         shoot.set(a);
+        putDashboard();
     }
 
     public static void putDashboard() {

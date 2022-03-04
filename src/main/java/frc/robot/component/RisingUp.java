@@ -27,6 +27,7 @@ public class RisingUp {
         else {
             up.set(ControlMode.PercentOutput, 0);
         }
+        putDashboard();
     }
 
     public static void putDashboard() {
