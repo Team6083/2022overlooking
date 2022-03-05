@@ -44,7 +44,7 @@ public class NewAutoEngine {
     protected static final String DoNothing = "DoNothing";
 
     public static void init() {
-        VisionTracking.autoinit();
+        VisionTracking.initLimeLight();
         chooser = new SendableChooser<String>();
         chooserSetting();
         // for (int i = 0; i < trajectoryAmount; i++) {
@@ -96,7 +96,7 @@ public class NewAutoEngine {
             //     break;
             // case DreamB2:
             //     DoDreamB2();
-            //     break;
+                break;
             case DoNothing:
                 DriveBase.directControl(0, 0);
                 break;
@@ -114,13 +114,14 @@ public class NewAutoEngine {
     }
 
     public static void DoStepBack() {
-        VisionTracking.seeking();
+        VisionTracking.limelight_tracking();
         timer.start();
         double time = timer.get();
         switch (currentStep) {
             case 0:
-                DriveBase.directControl(0.4, -0.4);
+                DriveBase.directControl(-0.6, 0.6);
                 if (time >= 3) {
+                    DriveBase.directControl(0, 0);
                     currentStep++;
                 }
                 break;
@@ -138,6 +139,7 @@ public class NewAutoEngine {
                 }
                 break;
             case 2:
+                timer.stop();
                 timer.reset();
                 Shoot.autoshoot(0);
                 Transport.AutoTrans(0);

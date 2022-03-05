@@ -1,5 +1,7 @@
 package frc.robot.component;
 
+import java.util.ResourceBundle.Control;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -18,12 +20,14 @@ public class RisingUp {
     }
 
     public static void teleop() {
-        if (Robot.maincontrol.getPOV() == 180) {
-            up.set(ControlMode.PercentOutput, 0.5);
-        } else if (Robot.maincontrol.getPOV() == 0) {
-            up.set(ControlMode.PercentOutput, -0.6);
+        if(up_switch.get()&&Robot.maincontrol.getPOV()==0){
+            up.set(ControlMode.PercentOutput,0);
         }
-
+        else if (Robot.maincontrol.getPOV() == 180) {
+            up.set(ControlMode.PercentOutput, 0.7);
+        } else if (Robot.maincontrol.getPOV() == 0) {
+            up.set(ControlMode.PercentOutput, -0.7);
+        }
         else {
             up.set(ControlMode.PercentOutput, 0);
         }

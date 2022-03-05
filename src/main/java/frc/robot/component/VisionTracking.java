@@ -21,12 +21,12 @@ public class VisionTracking {
     private static DigitalInput left_LimitSwitch;
     private static WPI_VictorSPX turnMotor;
     private static final int kturn = 18;
-    private static double speed = 0.65;
+    private static double speed = 0.65; 
     private static String R_warn = "Can't go to the right side anymore";
     private static String L_warn = "Can't go to the left side anymore";
 
     public static void init() {
-        pid = new PIDController(0.5, 0, 0);// values need to be confirmed
+        pid = new PIDController(0.26, 0, 0);// values need to be confirmed
         pid.setSetpoint(0);
         right_LimitSwitch = new DigitalInput(5);
         left_LimitSwitch = new DigitalInput(4);
@@ -35,9 +35,9 @@ public class VisionTracking {
         setCamMode(1);
     }
 
-    public static void autoinit(){
-        setLEDMode(1);
-        setCamMode(1);
+    public static void initLimeLight(){
+        setLEDMode(0);
+        setCamMode(0);
     }
 
 
@@ -47,10 +47,8 @@ public class VisionTracking {
         }
 
         if (Limelight_Switch) {
-            setLEDMode(0);
-            setCamMode(0);
+            initLimeLight();
             seeking();
-
         } else {
             setLEDMode(1);
             setCamMode(1);

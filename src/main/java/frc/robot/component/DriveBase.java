@@ -138,11 +138,9 @@ public class DriveBase {
         double leftV = -Robot.maincontrol.getLeftY() * 0.9;
         double rightV = Robot.maincontrol.getRightY() * 0.9;
 
-        if (Robot.maincontrol.getRightBumper()) {
-            rightV = 1;
-        }
-        if (Robot.maincontrol.getLeftBumper()) {
-            leftV = -1;
+        if(Robot.maincontrol.getRightBumper()||Robot.maincontrol.getLeftBumper()){
+            leftV = leftV*2;
+            rightV = rightV*2;
         }
 
         drive.tankDrive(leftV, rightV);

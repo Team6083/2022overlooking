@@ -23,23 +23,20 @@ public class Transport {
 
     public static void teleop() {
 
+        double speed = 0.6;
         if (Robot.vicecontrol.getPOV() == 180) {
-            tran.set(ControlMode.PercentOutput, 0.4);
+            speed = speed;
         } else if (Robot.vicecontrol.getPOV() == 0) {
-            tran.set(ControlMode.PercentOutput, -0.4);
-        } 
-        else if(Robot.vicecontrol.getBButton()){
-            tran.set(ControlMode.PercentOutput, -0.6);
+            speed = -speed;
+        } else {
+            speed = 0;
         }
-            else {
-            tran.set(ControlMode.PercentOutput, 0);
-        }
-    
+        tran.set(speed);
 
         putDashboard();
     }
 
-    public static void AutoTrans(double v){
+    public static void AutoTrans(double v) {
         tran.set(ControlMode.PercentOutput, v);
         putDashboard();
     }

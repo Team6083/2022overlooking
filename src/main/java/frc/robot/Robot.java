@@ -69,7 +69,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    NewAutoEngine.start();
+    NewAutoEngine.start();  
+    VisionTracking.initLimeLight();
   }
 
   @Override
