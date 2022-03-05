@@ -16,7 +16,7 @@ public class Shoot {
 
     public static void teleop() {
         if (Robot.maincontrol.getBButton()) {
-            shoot.set(0.6 + Robot.maincontrol.getRightTriggerAxis() * 0.25);
+            shoot.set(0.65);
         } else {
             shoot.set(0);
         }

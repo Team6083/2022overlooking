@@ -12,7 +12,7 @@ public class Transport {
     private static double dis = 5;
     private static WPI_VictorSPX tran;
     private static int ktran = 15;
-    private static Rev2mDistanceSensor distSens;
+    public static Rev2mDistanceSensor distSens;
 
     public static void init() {
         tran = new WPI_VictorSPX(ktran);
@@ -27,10 +27,20 @@ public class Transport {
             tran.set(ControlMode.PercentOutput, 0.4);
         } else if (Robot.vicecontrol.getPOV() == 0) {
             tran.set(ControlMode.PercentOutput, -0.4);
-        } else {
+        } 
+        else if(Robot.vicecontrol.getBButton()){
+            tran.set(ControlMode.PercentOutput, -0.6);
+        }
+            else {
             tran.set(ControlMode.PercentOutput, 0);
         }
+    
 
+        putDashboard();
+    }
+
+    public static void AutoTrans(double v){
+        tran.set(ControlMode.PercentOutput, v);
         putDashboard();
     }
 
@@ -38,4 +48,5 @@ public class Transport {
         SmartDashboard.putNumber("transport/power", tran.get());
         SmartDashboard.putNumber("transport/dist", distSens.GetRange());
     }
+
 }

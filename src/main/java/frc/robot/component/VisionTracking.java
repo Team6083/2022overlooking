@@ -21,7 +21,7 @@ public class VisionTracking {
     private static DigitalInput left_LimitSwitch;
     private static WPI_VictorSPX turnMotor;
     private static final int kturn = 18;
-    private static double speed = 0.5;
+    private static double speed = 0.65;
     private static String R_warn = "Can't go to the right side anymore";
     private static String L_warn = "Can't go to the left side anymore";
 
@@ -34,6 +34,12 @@ public class VisionTracking {
         setLEDMode(1);
         setCamMode(1);
     }
+
+    public static void autoinit(){
+        setLEDMode(1);
+        setCamMode(1);
+    }
+
 
     public static void teleop() {
         if (Robot.vicecontrol.getXButtonPressed()) {
@@ -87,10 +93,10 @@ public class VisionTracking {
         ty = table.getEntry("ty").getDouble(0);
         double rota = -pid.calculate(tx);
 
-        if (rota > 0.7) {
-            rota = 0.7;
-        } else if (rota < -0.7) {
-            rota = -0.7;
+        if (rota > 0.8) {
+            rota = 0.8;
+        } else if (rota < -0.8) {
+            rota = -0.8;
         } else if (right_LimitSwitch.get()) {
             rota = 0;
             SmartDashboard.putString("warning", R_warn);

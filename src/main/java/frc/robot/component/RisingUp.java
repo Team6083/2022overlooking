@@ -19,9 +19,9 @@ public class RisingUp {
 
     public static void teleop() {
         if (Robot.maincontrol.getPOV() == 180) {
-            up.set(ControlMode.PercentOutput, 0.3);
+            up.set(ControlMode.PercentOutput, 0.5);
         } else if (Robot.maincontrol.getPOV() == 0) {
-            up.set(ControlMode.PercentOutput, -0.7);
+            up.set(ControlMode.PercentOutput, -0.6);
         }
 
         else {

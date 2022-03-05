@@ -36,24 +36,21 @@ public class SuckBall {
         }
 
         if (Robot.maincontrol.getYButton()) {
-            a = true;
-        } else if (Robot.maincontrol.getRawButtonPressed(9)) {
-            b = !b;
-        } else {
-            a = false;
-        }
-
-        if (a == true && b == false) {
-            sol.set(Value.kForward);
-            suck.set(0.7);
-        } else if (b && a == false) {
-            sol.set(Value.kForward);
-        } else if (b && Robot.maincontrol.getRawButton(10) && a == false) {
             suck.set(0.7);
         } else {
-            sol.set(Value.kReverse);
             suck.set(0);
         }
+
+        if (Robot.maincontrol.getXButtonPressed()) {
+            b = !b;
+        }
+
+        if (b == false) {
+            sol.set(Value.kReverse);
+        } else {
+            sol.set(Value.kForward);
+        }
+
         pubDashboard();
     }
 
