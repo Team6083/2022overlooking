@@ -2,7 +2,6 @@ package frc.robot.component;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoSink;
 
 public class Camera {
     public static UsbCamera camera1;
