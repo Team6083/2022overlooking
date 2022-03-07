@@ -1,7 +1,5 @@
 package frc.robot.component;
 
-import java.util.ResourceBundle.Control;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -16,7 +14,7 @@ public class RisingUp {
 
     public static void init() {
         up = new WPI_VictorSPX(kUp);
-         up_switch = new DigitalInput(3);
+        up_switch = new DigitalInput(3);
     }
 
     public static void teleop() {
@@ -33,6 +31,6 @@ public class RisingUp {
 
     public static void putDashboard() {
         SmartDashboard.putNumber("climb/power", up.get());
-         SmartDashboard.putBoolean("climb/sw", up_switch.get());
+         SmartDashboard.putBoolean("climb_sw", up_switch.get());
     }
 }

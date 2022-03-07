@@ -1,18 +1,10 @@
 package frc.robot.system;
 
-import java.io.IOException;
-import java.nio.file.Path;
-
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.component.DriveBase;
 import frc.robot.component.Shoot;
-import frc.robot.component.SuckBall;
 import frc.robot.component.Transport;
 import frc.robot.component.VisionTracking;
 
@@ -114,7 +106,7 @@ public class NewAutoEngine {
     }
 
     public static void DoStepBack() {
-        VisionTracking.limelight_tracking();
+        //VisionTracking.limelight_tracking();
         timer.start();
         double time = timer.get();
         switch (currentStep) {
