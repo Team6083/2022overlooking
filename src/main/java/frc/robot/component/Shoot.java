@@ -8,7 +8,7 @@ import frc.robot.Robot;
 
 public class Shoot {
     public static CANSparkMax shoot;
-    private static int ksparkMax = 19;
+    private static int ksparkMax = 21;
     private static boolean sho_switch;
     private static double speed;
 

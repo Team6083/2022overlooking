@@ -36,7 +36,7 @@ public class SuckBall {
         }
 
         if (Robot.maincontrol.getYButton()) {
-            suck.set(0.7);
+            suck.set(-0.7);
         } else {
             suck.set(0);
         }

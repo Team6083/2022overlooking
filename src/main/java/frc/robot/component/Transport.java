@@ -16,9 +16,8 @@ public class Transport {
 
     public static void init() {
         tran = new WPI_VictorSPX(ktran);
-        distSens = new Rev2mDistanceSensor(Port.kOnboard);
-        distSens.setAutomaticMode(true);
-
+        // distSens = new Rev2mDistanceSensor(Port.kOnboard);
+        // distSens.setAutomaticMode(true);
     }
 
     public static void teleop() {
@@ -43,7 +42,7 @@ public class Transport {
 
     public static void putDashboard() {
         SmartDashboard.putNumber("transport/power", tran.get());
-        SmartDashboard.putNumber("transport/dist", distSens.GetRange());
+        // SmartDashboard.putNumber("transport/dist", distSens.GetRange());
     }
 
 }

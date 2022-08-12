@@ -69,13 +69,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    NewAutoEngine.start();  
-    VisionTracking.initLimeLight();
+    // NewAutoEngine.start();  
+    // VisionTracking.initLimeLight();
   }
 
   @Override
   public void autonomousPeriodic() {
-    NewAutoEngine.loop();
+    // NewAutoEngine.loop();
   }
 
   @Override
@@ -85,16 +85,16 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     DriveBase.teleop();
-    RisingUp.teleop();
+    // RisingUp.teleop();
     Shoot.teleop();
     SuckBall.teleop();
     Transport.teleop();
-    VisionTracking.teleop();
+    // VisionTracking.teleop();
   }
 
   @Override
   public void disabledInit() {
-    VisionTracking.disableLimeLight();
+    // VisionTracking.disableLimeLight();
   }
 
   @Override
