@@ -18,17 +18,18 @@ public class Shoot {
         speed = 0.0;
     }
 
+    public static final double idleSpeed = 0.0;
+
     public static void teleop() {
-        
+
         if (Robot.maincontrol.getBButtonPressed()) {
             sho_switch = !sho_switch;
         }
 
-        if(sho_switch){
+        if (sho_switch) {
             speed = 0.6;
-        }
-        else{
-            speed = 0.3+Robot.maincontrol.getRightTriggerAxis()*0.7;
+        } else {
+            speed = idleSpeed + Robot.maincontrol.getRightTriggerAxis() * (1 - idleSpeed);
         }
         shoot.set(speed);
         putDashboard();
