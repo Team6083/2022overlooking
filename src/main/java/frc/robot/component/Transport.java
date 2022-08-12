@@ -24,9 +24,9 @@ public class Transport {
     public static void teleop() {
 
         double speed = 0.6;
-        if (Robot.vicecontrol.getPOV() == 180) {
+        if (Robot.maincontrol.getPOV() == 180) {
             speed = speed;
-        } else if (Robot.vicecontrol.getPOV() == 0) {
+        } else if (Robot.maincontrol.getPOV() == 0) {
             speed = -speed;
         } else {
             speed = 0;
