@@ -28,9 +28,9 @@ public class Shoot {
 
         if (sho_switch) {
             speed = 0.6;
-        } else {
+         } else {
             speed = idleSpeed + Robot.maincontrol.getRightTriggerAxis() * (1 - idleSpeed);
-        }
+         }
         shoot.set(speed);
         putDashboard();
     }

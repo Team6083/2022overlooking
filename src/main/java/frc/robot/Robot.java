@@ -42,13 +42,13 @@ public class Robot extends TimedRobot {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
     DriveBase.init();
-    RisingUp.init();
+    // RisingUp.init();
     Shoot.init();
     SuckBall.init();
     Transport.init();
-    VisionTracking.init();
-    NewAutoEngine.init();
-    Camera.init();
+    // VisionTracking.init();
+    // NewAutoEngine.init();
+    // Camera.init();
   }
 
   @Override

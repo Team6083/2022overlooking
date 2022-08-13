@@ -27,29 +27,36 @@ public class SuckBall {
 
     public static void teleop() {
 
-        boolean com_switch = SmartDashboard.getBoolean("Compressor", true);
+        boolean com_switch = SmartDashboard.getBoolean("Compressor", false);
 
-        if (com_switch) {
-            com.enableDigital();
-        } else if (!com_switch) {
-            com.disable();
-        }
+        // if (com_switch) {
+        //     com.enableDigital();
+        // } else if (!com_switch) {
+        //     com.disable();
+        // }
 
         if (Robot.maincontrol.getYButton()) {
-            suck.set(-0.7);
+            suck.set(-0.45);
         } else {
             suck.set(0);
         }
-
-        if (Robot.maincontrol.getXButtonPressed()) {
-            b = !b;
+        if (Robot.maincontrol.getXButton()){
+            suck.set(0.3);
         }
 
-        if (b == false) {
-            sol.set(Value.kReverse);
-        } else {
-            sol.set(Value.kForward);
-        }
+        // if (Robot.maincontrol.getXButtonPressed()) {
+        //     b = !b;
+        // }
+
+        // if (Robot.maincontrol.getXButton()) {
+        //     if (b == false) {
+        //         sol.set(Value.kReverse);
+        //     } else {
+        //         sol.set(Value.kForward);
+        //     }
+        // } else {
+        //     sol.set(Value.kOff);
+        // }
 
         pubDashboard();
     }

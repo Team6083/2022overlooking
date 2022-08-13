@@ -135,8 +135,8 @@ public class DriveBase {
     // Here comes some function to control robot
     // normal drivebase
     public static void teleop() {
-        double leftV = -Robot.maincontrol.getLeftY() * 0.9;
-        double rightV = Robot.maincontrol.getRightY() * 0.9;
+        double leftV = -Robot.maincontrol.getLeftY() * 0.6;
+        double rightV = Robot.maincontrol.getRightY() * 0.6;
 
         if(Robot.maincontrol.getRightBumper()||Robot.maincontrol.getLeftBumper()){
             leftV = leftV*2;
