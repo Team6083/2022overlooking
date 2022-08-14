@@ -27,7 +27,7 @@ public class SuckBall {
 
     public static void teleop() {
 
-        boolean com_switch = SmartDashboard.getBoolean("Compressor", true);
+        boolean com_switch = SmartDashboard.getBoolean("Compressor", false);
 
         if (com_switch) {
             com.enableDigital();
