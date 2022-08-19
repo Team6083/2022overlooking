@@ -27,7 +27,7 @@ public class SuckBall {
 
     public static void teleop() {
 
-        boolean com_switch = SmartDashboard.getBoolean("Compressor", false);
+        boolean com_switch = SmartDashboard.getBoolean("Compressor", true);
 
         if (com_switch) {
             com.enableDigital();
@@ -36,12 +36,9 @@ public class SuckBall {
         }
 
         if (Robot.maincontrol.getYButton()) {
-            suck.set(-0.45);
+            suck.set(-0.7);
         } else {
             suck.set(0);
-        }
-        if (Robot.maincontrol.getRawButton(1)){
-            suck.set(0.3);
         }
 
         if (Robot.maincontrol.getXButtonPressed()) {
