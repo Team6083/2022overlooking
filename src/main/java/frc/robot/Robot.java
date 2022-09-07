@@ -75,7 +75,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    NewAutoEngine.loop();
+   NewAutoEngine.loop();
   }
 
   @Override
