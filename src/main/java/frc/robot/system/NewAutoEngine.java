@@ -19,16 +19,16 @@ import frc.robot.component.VisionTracking;
 public class NewAutoEngine {
 
     static int currentStep = 0;
-    static int trajectoryAmount = 8;
+    static int trajectoryAmount = 7;
     static int[] dreamR1 = { 0, 1 };
-    static int[] dreamR2 = { 2, 3 };
-    static int[] dreamB1 = { 4, 5 };
-    static int[] dreamB2 = { 6, 7 };
+    static int[] dreamR2 = { 2 };
+    static int[] dreamB1 = { 3, 4 };
+    static int[] dreamB2 = { 5, 6 };
     static String[] trajectoryJSON = {
-            "/home/lvuser/deploy/output/dreamR1-1.wpilib.json", "/home/lvuser/deploy/output/dreamR1-2.wpilib.json",
-            "/home/lvuser/deploy/output/dreamR2-1.wpilib.json", "/home/lvuser/deploy/output/draemR2-2.wpilib.json",
-            "/home/lvuser/deploy/output/dreamB1-1.wpilib.json", "/home/lvuser/deploy/output/dreamB1-2.wpilib.json",
-            "/home/lvuser/deploy/output/dreamB2-1.wpilib.json", "/home/lvuser/deploy/output/dreamB2-2.wpilib.json"
+            "/home/lvuser/deploy/output/output/dreamR1-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamR1-2.wpilib.json",
+            "/home/lvuser/deploy/output/output/dreamR2-1.wpilib.json",
+            "/home/lvuser/deploy/output/output/dreamB1-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamB1-2.wpilib.json",
+            "/home/lvuser/deploy/output/output/dreamB2-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamB2-2.wpilib.json"
     };
 
     static Trajectory[] trajectory = new Trajectory[trajectoryAmount];
