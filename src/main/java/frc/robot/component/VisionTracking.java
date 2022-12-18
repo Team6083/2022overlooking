@@ -36,7 +36,7 @@ public class VisionTracking {
     }
 
     public static void initLimeLight(){
-        setLEDMode(0);
+        setLEDMode(1);
         setCamMode(0);
     }
 

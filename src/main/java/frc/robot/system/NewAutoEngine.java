@@ -19,16 +19,18 @@ import frc.robot.component.VisionTracking;
 public class NewAutoEngine {
 
     static int currentStep = 0;
-    static int trajectoryAmount = 7;
+    static int trajectoryAmount = 8;
     static int[] dreamR1 = { 0, 1 };
     static int[] dreamR2 = { 2 };
     static int[] dreamB1 = { 3, 4 };
     static int[] dreamB2 = { 5, 6 };
+    static int[] test = { 7};
     static String[] trajectoryJSON = {
             "/home/lvuser/deploy/output/output/dreamR1-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamR1-2.wpilib.json",
             "/home/lvuser/deploy/output/output/dreamR2-1.wpilib.json",
             "/home/lvuser/deploy/output/output/dreamB1-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamB1-2.wpilib.json",
-            "/home/lvuser/deploy/output/output/dreamB2-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamB2-2.wpilib.json"
+            "/home/lvuser/deploy/output/output/dreamB2-1.wpilib.json", "/home/lvuser/deploy/output/output/dreamB2-2.wpilib.json",
+            "/home/lvuser/deploy/output/output/test.wpilib.json"
     };
 
     static Trajectory[] trajectory = new Trajectory[trajectoryAmount];
@@ -41,6 +43,7 @@ public class NewAutoEngine {
     protected static final String DreamR2 = "DreamR2";
     protected static final String DreamB1 = "DreamB1";
     protected static final String DreamB2 = "DreamB2";
+    protected static final String Test = "Test";
     protected static final String DoNothing = "DoNothing";
 
     public static void init() {
@@ -97,6 +100,9 @@ public class NewAutoEngine {
             case DreamB2:
                 DoDreamB2();
                 break;
+                case Test:
+                DoTest();
+                break;
             case DoNothing:
                 DriveBase.directControl(0, 0);
                 break;
@@ -109,6 +115,7 @@ public class NewAutoEngine {
         chooser.addOption("dreamR2", DreamR2);
         chooser.addOption("dreamB1", DreamB1);
         chooser.addOption("dreamB2", DreamB2);
+        chooser.addOption("Test", Test);
         chooser.addOption("stepback", StepBack);
         SmartDashboard.putData("Auto Choice", chooser);
     }
@@ -167,7 +174,7 @@ public class NewAutoEngine {
                             trajectory[dreamR1[1]].getInitialPose().getRotation());
                 }
             case 2:
-                SuckBall.autoSuck(0.5);
+                //SuckBall.autoSuck(0.5);
             case 3:
                 DriveBase.runTraj(trajectory[dreamR1[1]], timer.get());
                 if (timer.get() > trajectory[dreamR1[1]].getTotalTimeSeconds()) {
@@ -176,8 +183,8 @@ public class NewAutoEngine {
                     timer.start();
                 }
             case 4:
-                VisionTracking.limelight_tracking();
-                Shoot.autoshoot(0.5);
+                //VisionTracking.limelight_tracking();
+                //Shoot.autoshoot(0.5);
                 break;
         }
     }
@@ -286,5 +293,23 @@ public class NewAutoEngine {
                 break;
         }
     }
-
+    public static void DoTest() {
+        switch (currentStep) {
+            case 0:// Initialize robot position
+                currentStep++;
+                timer.reset();
+                timer.start();
+                DriveBase.odometry.resetPosition(trajectory[dreamB2[0]].getInitialPose(),
+                        trajectory[dreamB2[0]].getInitialPose().getRotation());
+                DriveBase.resetEnc();
+                break;
+            case 1:
+                DriveBase.runTraj(trajectory[test[0]], timer.get());
+                if (timer.get() > trajectory[test[0]].getTotalTimeSeconds()) {
+                    currentStep++;
+                    timer.reset();
+                    timer.start();
+                }
+        }
+    }
 }
