@@ -127,7 +127,7 @@ public class DriveBase {
         // "Yaw"));//for simulation
 
         // For smartDashboard to take number and path which call back from pathWeaver
-        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
+        odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0), leftencoder.getDistance(),rightencoder.getDistance() );
         SmartDashboard.putData("field", field);
         SmartDashboard.putData("trajField", trajField);
     }
@@ -135,8 +135,8 @@ public class DriveBase {
     // Here comes some function to control robot
     // normal drivebase
     public static void teleop() {
-        double leftV = -Robot.maincontrol.getLeftY() * 0.9;
-        double rightV = Robot.maincontrol.getRightY() * 0.9;
+        double leftV = -Robot.maincontrol.getLeftY() * 0.5;
+        double rightV = Robot.maincontrol.getRightY() * 0.5;
 
         if(Robot.maincontrol.getRightBumper()||Robot.maincontrol.getLeftBumper()){
             leftV = leftV*2;
@@ -226,7 +226,7 @@ public class DriveBase {
     }
 
     public static void setODOPose(Pose2d pose) {
-        odometry.resetPosition(pose, pose.getRotation());
+        odometry.resetPosition(Rotation2d.fromDegrees(0), leftencoder.getDistance(),rightencoder.getDistance(),pose);
         field.setRobotPose(odometry.getPoseMeters());
     }
 
