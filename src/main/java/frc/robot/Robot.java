@@ -15,7 +15,7 @@ import frc.robot.component.SuckBall;
 import frc.robot.component.Transport;
 import frc.robot.component.RisingUp;
 import frc.robot.component.VisionTracking;
-import frc.robot.system.NewAutoEngine;
+//import frc.robot.system.NewAutoEngine;
 
 //import frc.robot.system.NewAutoEngine;
 
@@ -42,40 +42,40 @@ public class Robot extends TimedRobot {
     maincontrol = new XboxController(0);
     vicecontrol = new XboxController(1);
     DriveBase.init();
-    RisingUp.init();
+    //RisingUp.init();
     Shoot.init();
     SuckBall.init();
     Transport.init();
-    VisionTracking.init();
-    NewAutoEngine.init();
-    Camera.init();
+    //VisionTracking.init();
+    //NewAutoEngine.init();
+    //Camera.init();
   }
 
   @Override
   public void robotPeriodic() {
-    SmartDashboard.putBoolean("ds/isFMSAtt", DriverStation.isFMSAttached());
-    SmartDashboard.putNumber("ds/matchTime", DriverStation.getMatchTime());
+    // SmartDashboard.putBoolean("ds/isFMSAtt", DriverStation.isFMSAttached());
+    // SmartDashboard.putNumber("ds/matchTime", DriverStation.getMatchTime());
 
-    if (!DriverStation.isEnabled()) {
-      SmartDashboard.putNumber("ds/mode", 0);
-    } else if (DriverStation.isTeleop()) {
-      SmartDashboard.putNumber("ds/mode", 2);
-    } else if (DriverStation.isAutonomous()) {
-      SmartDashboard.putNumber("ds/mode", 1);
-    } else if (DriverStation.isTest()) {
-      SmartDashboard.putNumber("ds/mode", 3);
-    }
+    // if (!DriverStation.isEnabled()) {
+    //   SmartDashboard.putNumber("ds/mode", 0);
+    // } else if (DriverStation.isTeleop()) {
+    //   SmartDashboard.putNumber("ds/mode", 2);
+    // } else if (DriverStation.isAutonomous()) {
+    //   SmartDashboard.putNumber("ds/mode", 1);
+    // } else if (DriverStation.isTest()) {
+    //   SmartDashboard.putNumber("ds/mode", 3);
+    // }
   }
 
   @Override
   public void autonomousInit() {
-    NewAutoEngine.start();  
-    VisionTracking.initLimeLight();
+    //NewAutoEngine.start();  
+    //VisionTracking.initLimeLight();
   }
 
   @Override
   public void autonomousPeriodic() {
-   NewAutoEngine.loop();
+   //NewAutoEngine.loop();
   }
 
   @Override
@@ -85,16 +85,16 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     DriveBase.teleop();
-    RisingUp.teleop();
+    //RisingUp.teleop();
     Shoot.teleop();
     SuckBall.teleop();
     Transport.teleop();
-    VisionTracking.teleop();
+    //VisionTracking.teleop();
   }
 
   @Override
   public void disabledInit() {
-    VisionTracking.disableLimeLight();
+    //VisionTracking.disableLimeLight();
   }
 
   @Override

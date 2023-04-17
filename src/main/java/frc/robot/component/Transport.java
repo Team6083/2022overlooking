@@ -2,8 +2,8 @@ package frc.robot.component;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import com.revrobotics.Rev2mDistanceSensor;
-import com.revrobotics.Rev2mDistanceSensor.Port;
+// import com.revrobotics.Rev2mDistanceSensor;
+// import com.revrobotics.Rev2mDistanceSensor.Port;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
@@ -12,7 +12,7 @@ public class Transport {
     private static double dis = 5;
     private static WPI_VictorSPX tran;
     private static int ktran = 15;
-    public static Rev2mDistanceSensor distSens;
+    // public static Rev2mDistanceSensor distSens;
 
     public static void init() {
         tran = new WPI_VictorSPX(ktran);
@@ -23,9 +23,9 @@ public class Transport {
     public static void teleop() {
 
         double speed = 0.6;
-        if (Robot.vicecontrol.getPOV() == 180) {
+        if (Robot.maincontrol.getPOV() == 180) {
             speed = speed;
-        } else if (Robot.vicecontrol.getPOV() == 0) {
+        } else if (Robot.maincontrol.getPOV() == 0) {
             speed = -speed;
         } else {
             speed = 0;

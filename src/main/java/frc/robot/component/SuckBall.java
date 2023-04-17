@@ -19,7 +19,7 @@ public class SuckBall {
         com = new Compressor(PneumaticsModuleType.CTREPCM);
         sol = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
         suck = new WPI_VictorSPX(ksuck);
-        com.enableDigital();
+        // com.enableDigital();
     }
 
     private static boolean a = false;
@@ -29,31 +29,33 @@ public class SuckBall {
 
         boolean com_switch = SmartDashboard.getBoolean("Compressor", true);
 
-        if (com_switch) {
-            com.enableDigital();
-        } else if (!com_switch) {
-            com.disable();
-        }
+        // if (com_switch) {
+        // com.enableDigital();
+        // } else if (!com_switch) {
+        // com.disable();
+        // }
 
         if (Robot.maincontrol.getYButton()) {
-            suck.set(-0.7);
+            suck.set(-0.5);
+        } else if(Robot.maincontrol.getXButton()){
+            suck.set(0.3);
         } else {
             suck.set(0);
         }
 
-        if (Robot.maincontrol.getXButtonPressed()) {
-            b = !b;
-        }
+        // if (Robot.maincontrol.getXButtonPressed()) {
+        // b = !b;
+        // }
 
-        if (Robot.maincontrol.getXButton()) {
-            if (b == false) {
-                sol.set(Value.kReverse);
-            } else {
-                sol.set(Value.kForward);
-            }
-        } else {
-            sol.set(Value.kOff);
-        }
+        // if (Robot.maincontrol.getXButton()) {
+        // if (b == false) {
+        // sol.set(Value.kReverse);
+        // } else {
+        // sol.set(Value.kForward);
+        // }
+        // } else {
+        // sol.set(Value.kOff);
+        // }
 
         pubDashboard();
     }

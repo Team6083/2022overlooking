@@ -27,9 +27,12 @@ public class Shoot {
         }
 
         if (sho_switch) {
-            speed = 0.6;
-         } else {
-            speed = idleSpeed + Robot.maincontrol.getRightTriggerAxis() * (1 - idleSpeed);
+            speed = 0.5;
+         } else if(Robot.maincontrol.getLeftBumper()){
+            speed = 0.2;
+         }else {
+           
+            speed = 0;
          }
         shoot.set(speed);
         putDashboard();
